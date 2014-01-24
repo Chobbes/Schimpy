@@ -1,0 +1,58 @@
+#+TITLE: Schimpy Documentation
+#+AUTHOR: Calvin Beck
+#+OPTIONS: ^:{}
+
+* Data Types
+** Input
+   Single boolean value representing an input from a digital pin on an
+   Arduino (TRUE is HIGH, and FALSE is LOW). Input values are updated
+   sporadically, but they are guaranteed to not change within a
+   function.
+** Output
+   Single boolean value for the output on a digital pin (TRUE is HIGH,
+   and FALSE is LOW). Output variables act mostly the same as regular
+   variables, except that their value will be reflected in the digital
+   pins they are supposed to represent on the Arduino.
+** Int
+   16-bit integers
+** Byte
+   Single 8-bit bytes. Can use ascii character literals.
+** Boolean
+   True and false values.
+* Nodes
+  These represent the main program which is a single thread of
+  execution on a single processor. Each node contains a single state
+  transition function, as well as some variables which represent the
+  current state of the function. Each variable may only be altered
+  once in the state transition function, and it may only be used in
+  expressions before being modified -- this allows for the model
+  checker code to be much simpler.
+* Macros
+  Macros are essentially function calls, but when the model checking
+  code is generated they are expanded into single expressions. As a
+  result they can not be recursive, although they can call other
+  macros.
+
+  The advantage of using macros instead of functions is that they
+  don't introduce any extra state. When you use functions, which can
+  be recursive, we have to keep track of which function we are
+  currently executing. Each function call will take an additional step
+  in the model checker as well (which will affect specifications),
+  whereas a macro will not. Macros will also guarantee referential
+  transparency -- if they are called with the same arguments they will
+  result in the same values.
+
+  Note that the code that results from expanding a macro will result
+  in the same restrictions that all other code will have, but
+  otherwise they may be called in any place in the code. Functions are
+  somewhat more restricted and may only be called in the tail, this
+  prevents the model checking code from having to account for return
+  positions.
+** Scope
+   Macros have the same scoping that functions do.
+** Return Values
+   Macros may return a list of values, but may only have one possible
+   return type.
+* Functions
+  Functions are not expanded, and they might not be pure as the
+  outputs and inputs are essentially pass by reference.
