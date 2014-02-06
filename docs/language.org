@@ -89,3 +89,5 @@
       that the reader is now in the position to accept more bits.
 
     This may then be repeated in order to read multiple bits in.
+*** Reader
+    Implemented in [[./examples/communication/reader.el][reader.el]]
