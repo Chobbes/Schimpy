@@ -90,4 +90,40 @@
 
     This may then be repeated in order to read multiple bits in.
 *** Reader
-    Implemented in [[./examples/communication/reader.el][reader.el]]
+    Implemented in [[./examples/communication/reader.el][reader.el]], and an example NuSMV translation is given in [[./examples/communication/reader.smv][reader.smv]]
+
+    One problem that came up is that I initially had this:
+
+    #+BEGIN_SRC lisp
+      ;; All this does is constantly read bytes
+      (node reader
+            ;; Port numbers below...
+            (let ((byte (read_byte 2 3 4 8)))))
+    #+END_SRC
+
+    But in this case the initial value of "byte" isn't really well
+    defined. There should probably be a rule that the value in a let
+    binding must simplify down to a single expression. That is, it can
+    be a macro call, a constant value, or maybe even defined as being
+    another variable within the scope, but it may not be the value of
+    a function call.
+
+    It is also clear that nodes will need to have some state variables
+    which can be modified. I think this is reasonable -- they are
+    essentially the main variables describing the state of the FSM.
+
+    This was changed to:
+
+    #+BEGIN_SRC lisp
+      ;; All this does is constantly read bytes
+      (node reader
+            ;; State variables are declared first with an initial
+            ;; value. These may change after each iteration.
+            ((byte our_byte) 0)
+      
+            ;; Port numbers below...
+            (set byte (read_byte 2 3 4 8)))
+    #+END_SRC
+
+    So, now we declare state variables with an initial value, and can
+    change them with "set".
