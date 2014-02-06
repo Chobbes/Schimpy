@@ -49,5 +49,9 @@
        
 ;; All this does is constantly read bytes
 (node reader
+      ;; State variables are declared first with an initial
+      ;; value. These may change after each iteration.
+      ((byte our_byte) 0)
+
       ;; Port numbers below...
-      (let ((byte (read_byte 2 3 4 8)))))
+      (set byte (read_byte 2 3 4 8)))
