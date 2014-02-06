@@ -54,4 +54,4 @@
       ((byte our_byte) 0)
 
       ;; Port numbers below...
-      (set byte (read_byte 2 3 4 8)))
+      (set our_byte (read_byte 2 3 4 8)))
