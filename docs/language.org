@@ -56,3 +56,36 @@
 * Functions
   Functions are not expanded, and they might not be pure as the
   outputs and inputs are essentially pass by reference.
+** Return Values
+   Return values are completely necessary for functions because
+   otherwise you can not return anything you read! This is complicated
+   by the model needing to keep track of which variable to store the
+   return value in.
+* Examples
+  Currently working on some examples for the language to figure out
+  any oddities with the language, as well as how things should be
+  translated.
+** Communication
+   Working on some communication examples. Want to show that it can be
+   easy to write a little bit communication protocol that can share
+   bytes and be reused easily. This was a problem with the previous
+   iteration of the language.
+*** Protocol
+    The protocol in question involves a reader and a writer connected
+    over a three bit channel. The connection is one way. The three
+    channels are called *bit* (this is the data bit), *lock*, and
+    *ack*. *bit* and *lock* communicate a single digital value from the
+    writer to the reader. *ack* is used to send acknowledgments from
+    the reader to the writer. The general idea is as follows:
+
+    - The writer sets *bit*, and then sets *lock* to say "hey, there
+      is a bit to read!"
+    - The reader then looks at the value of *bit* and stores it. The
+      reader then says "okay, got it!" by setting *ack*.
+    - The reader then waits for the writer to unset *lock*. This is
+      how the writer acknowledges that the reader has in fact gotten
+      the value for bit.
+    - The writer then waits for the reader to unset *ack*, which means
+      that the reader is now in the position to accept more bits.
+
+    This may then be repeated in order to read multiple bits in.
