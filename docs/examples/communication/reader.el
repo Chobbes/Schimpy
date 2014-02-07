@@ -51,7 +51,10 @@
 (node reader
       ;; State variables are declared first with an initial
       ;; value. These may change after each iteration.
-      ((byte our_byte) 0)
+      (((byte our_byte) 0)
+       ((input bit 2))  ; Initial values don't make sense for inputs.
+       ((input lock 3))
+       ((output ack 4) true))
 
       ;; Port numbers below...
       (set our_byte (read_byte 2 3 4 8)))
