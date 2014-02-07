@@ -3,8 +3,14 @@ MODULE reader(bit, lock)
 VAR
         our_byte : 0..255;
         current-func : {f-reader, f-read_byte};
+        ack : boolean;
 ASSIGN
-        init current-func := f-reader;
+        -- Extra state goo that the compiler needs.
+        init(current-func) := f-reader;
+
+        -- User defined stuff.
+        init(ack) := false;
+        next(ack) :=
 
         init(our_byte) := 0;
         next(our_byte) := 
