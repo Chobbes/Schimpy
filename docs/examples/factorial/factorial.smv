@@ -1,0 +1,35 @@
+MODULE main
+VAR
+  factorial : fact;
+  result : 0..255;
+ASSIGN
+  init(result) := 0;
+  next(result) := factorial.done ? factorial.return : 0;
+
+MODULE fact
+VAR
+  i : 0..255;
+  n : 0..255;
+  done : boolean;
+  return : 0..255;
+ASSIGN
+  init(done) := FALSE;
+  next(done) :=
+    case
+      i = 0 : TRUE;
+      TRUE : FALSE;
+    esac;
+
+  init(return) := 0; -- Doesn't really matter.
+  next(return) :=
+    case
+      i = 0 : n;
+      TRUE : return;
+    esac;
+
+  init(i) := 6;
+  next(i) := i = 0 ? i : i - 1;
+
+  init(n) := 1;
+  next(n) := (i = 0 ? n : n * i) mod 256;
+
