@@ -1,0 +1,12 @@
+-- Reader node. Bit and lock are inputs.
+MODULE reader(bit, lock)
+VAR
+        our_byte : 0..255;
+        current-func : {f-reader, f-read_byte};
+ASSIGN
+        init current-func := f-reader;
+
+        init(our_byte) := 0;
+        next(our_byte) := 
+
+MODULE read_bit(bit, lock, ack)
