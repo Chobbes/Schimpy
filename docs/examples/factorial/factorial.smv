@@ -1,12 +1,14 @@
 MODULE main
+DEFINE
+  value := 3;
 VAR
-  factorial : fact;
+  factorial : fact(self);
   result : 0..255;
 ASSIGN
   init(result) := 0;
   next(result) := factorial.done ? factorial.return : 0;
 
-MODULE fact
+MODULE fact(main)
 VAR
   i : 0..255;
   n : 0..255;
@@ -20,14 +22,14 @@ ASSIGN
       TRUE : FALSE;
     esac;
 
-  init(return) := 0; -- Doesn't really matter.
+  init(return) := 0; -- Doesn't really matter?
   next(return) :=
     case
       i = 0 : n;
       TRUE : return;
     esac;
 
-  init(i) := 6;
+  init(i) := main.value;
   next(i) := i = 0 ? i : i - 1;
 
   init(n) := 1;
