@@ -141,7 +141,7 @@
             (((byte our_byte) 0)
              ((input bit 2))  ; Initial values don't make sense for inputs.
              ((input lock 3))
-             ((output ack 4) true))
+             ((output ack 4) false))
       
             ;; Port numbers below...
             (set our_byte (read_byte 2 3 4 8)))
