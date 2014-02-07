@@ -127,3 +127,24 @@
 
     So, now we declare state variables with an initial value, and can
     change them with "set".
+
+    With how this is set up it may be difficult to know which pins are
+    outputs... We should probably have to declare I/O pins,
+    actually. Who knows if a pin is being used for input or output
+    otherwise! So perhaps we should write nodes more like:
+
+    #+BEGIN_SRC lisp
+      ;; All this does is constantly read bytes
+      (node reader
+            ;; State variables are declared first with an initial
+            ;; value. These may change after each iteration.
+            (((byte our_byte) 0)
+             ((input bit 2))  ; Initial values don't make sense for inputs.
+             ((input lock 3))
+             ((output ack 4) true))
+      
+            ;; Port numbers below...
+            (set our_byte (read_byte 2 3 4 8)))
+    #+END_SRC
+
+    Where any I/O that the node uses must be declared within the node.
