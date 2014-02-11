@@ -61,6 +61,38 @@
    otherwise you can not return anything you read! This is complicated
    by the model needing to keep track of which variable to store the
    return value in.
+
+   In NuSMV it is possible to implement function calls as modules, and
+   use a "return value" variable in the module, as well as some
+   boolean variable to represent when a function is done. By doing
+   this we can just copy the module's return value into any variable
+   that receives the functions value once the module is marked as
+   being "done".
+** Function Calling
+*** Non-Recursive Functions
+    In most cases you should try to use macros when you don't need to
+    use recursion with functions. Macros can give you much of the same
+    benefits, but they have the advantage of not requiring any
+    additional state. While these may not be nearly as useful as their
+    recursive counterparts our discussion of functions starts here for
+    simplicity.
+
+    The main difference between a non-recursive function and a macro
+    is that the function can actually perform some I/O. A function
+    call will cause input values to be read, and allow for all outputs
+    to be written to.
+
+    Since these functions are basically beefier macros we can call
+    them from almost anywhere within another function. The one
+    restriction is that all I/O must be done before any function
+    call. The reason for this is that a function call can cause
+    modifications to the I/O variables, so when the function returns
+    they will not be in the same state as before.
+*** Recursive Functions
+    Functions which call themselves, either directly or indirectly
+    (for instance a function *f* could call another function *g*,
+    where *g* calls *f*) need a bit of special treatment because we
+    can not provide a proper call stack.
 * Examples
   Currently working on some examples for the language to figure out
   any oddities with the language, as well as how things should be
@@ -148,3 +180,8 @@
     #+END_SRC
 
     Where any I/O that the node uses must be declared within the node.
+** Factorial
+   Factorial is a simple program to demonstrate tail call
+   recursion. With tail call recursion "stack frames" can be reused,
+   so no extra state is necessary.
+
