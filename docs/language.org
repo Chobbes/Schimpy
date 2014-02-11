@@ -87,7 +87,9 @@
     restriction is that all I/O must be done before any function
     call. The reason for this is that a function call can cause
     modifications to the I/O variables, so when the function returns
-    they will not be in the same state as before.
+    they will not be in the same state as before. In fact any function
+    that is not itself recursive may call any function in this manner
+    whether or not the other function is recursive.
 *** Recursive Functions
     Functions which call themselves, either directly or indirectly
     (for instance a function *f* could call another function *g*,
