@@ -46,3 +46,9 @@
   ;; Wait until ack is unset
   (if ack (write_bit_wait ack)
     ()))
+
+(: write_byte Output -> Output -> Input -> Byte -> Byte -> ())
+(define (write_byte bit lock ack byte left)
+  (let ((bit_value (eq 1 (mod byte 2))))
+    (if (eq 0 left) ()
+      (begin (write_bit bit lock ack bit_value) (write_byte bit lock ack (/ byte 2) (- left 1))))))
