@@ -41,12 +41,13 @@
 
 
 ;; First byte is lowest order byte
-(: read_byte Input -> Input -> Output -> Byte -> Byte)
-(define (read_byte bit lock ack left)
+(: read_byte Input -> Input -> Output -> Byte -> Byte -> Byte)
+(define (read_byte bit lock ack left value)
   (let ((bit_value (if (read_bit bit lock ack) 1 0))
-        (remaining (- left 1)))
-    (if (eq 0 remaining) bit_value
-      (+ bit_value (* 2 (read_byte bit lock ack remaining))))))
+        (remaining (- left 1))
+        (new_value (+ bit_value (*2 value))))
+    (if (eq 0 remaining) new_value
+      (read_byte bit lock ack left new_value))))
        
 ;; All this does is constantly read bytes
 (node reader
