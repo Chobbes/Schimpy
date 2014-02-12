@@ -58,5 +58,5 @@
        ((input lock 3))
        ((output ack 4) false))
 
-      ;; Port numbers below...
-      (set our_byte (read_byte 2 3 4 8)))
+      ;; Port numbers below... Final argument is the starting byte.
+      (set our_byte (read_byte 2 3 4 8 0)))
