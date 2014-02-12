@@ -29,3 +29,20 @@
         (remaining (- left 1)))
     (if (eq 0 remaining) new_reversed
       (byte_reverse new_reversed remaining (/ byte 2)))))
+
+(: write_bit Output -> Output -> Input -> Boolean -> ())
+(define (write_bit bit lock ack value)
+  (begin (write bit) (write lock) (write_bit_unlock lock ack)))
+
+(: write_bit_unlock Output -> Input -> ())
+(define (write_bit_unlock lock ack)
+  ;; Once ack is set we can unset the lock. Done transfer.
+  (if ack
+      (begin (write lock false) (write_bit_wait ack))
+      (write_bit_unlock lock ack)))
+
+(: write_bit_wait Input -> ())
+(define (write_bit_wait ack)
+  ;; Wait until ack is unset
+  (if ack (write_bit_wait ack)
+    ()))
