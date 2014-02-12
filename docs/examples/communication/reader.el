@@ -34,7 +34,7 @@
   ; With begin0 bit is returned.
   (begin0 bit (write ack true) (read_bit_unack lock ack))) ; read_bit_unack is in the tail position.
 
-(: read_bit_unack Input -> Output -> Boolean)
+(: read_bit_unack Input -> Output -> Boolean -> ())
 (define (read_bit_unack bit lock ack)
   (if lock (read_bit_unack lock ack) ; Keep trying until unlock
     (write ack false)))  ; Write when false
