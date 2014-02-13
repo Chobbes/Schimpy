@@ -48,7 +48,8 @@
         (new_value (+ bit_value (*2 value))))
     (if (eq 0 remaining) new_value
       (read_byte bit lock ack left new_value))))
-       
+
+
 ;; All this does is constantly read bytes
 (node reader
       ;; State variables are declared first with an initial
