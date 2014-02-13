@@ -178,10 +178,19 @@
              ((output ack 4) false))
       
             ;; Port numbers below...
-            (set our_byte (read_byte 2 3 4 8)))
+            (set our_byte (read_byte bit lock ack 8)))
     #+END_SRC
 
-    Where any I/O that the node uses must be declared within the node.
+    Where any I/O that the node uses must be declared within the
+    node. Note that when we are reading in bytes we must use tail
+    recursion!
+*** Writer
+    Implemented in [[./examples/communication/writer.el][writer.el]], and an example NuSMV translation is given in [[./examples/communication/writer.smv][writer.smv]]
+
+    Writer is very similar to reader. One problem that came up was
+    functions that just do I/O and don't have anything of value to
+    return. For now the return values are just "()", which is the
+    empty list.
 ** Factorial
    Factorial is a simple program to demonstrate tail call
    recursion. With tail call recursion "stack frames" can be reused,
