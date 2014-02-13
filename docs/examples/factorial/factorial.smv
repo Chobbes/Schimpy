@@ -1,24 +1,57 @@
 MODULE main
-DEFINE
-  value := 3;
 VAR
-  factorial : fact(self);
-  result : 0..255;
+  m-test : test();
+
+MODULE test
+VAR
+  -- Variables
+  x : 0..255;
+  y : 0..255;
+
+  -- Functions
+  m-fact : fact(self);
+
+  -- "Program counter"
+  -- We can call fact in two places.
+  calling : {f-test, f-fact-0, f-fact-1};
 ASSIGN
-  init(result) := 0;
-  next(result) := factorial.done ? factorial.return : 0;
+  init(x) := 0;
+  next(x) := (calling = f-fact-0 & m-fact.done) ? m-fact.return : 0;
+  
+  init(y) := 3;
+  next(y) := (calling = f-fact-1 & m-fact.done) ? m-fact.return : 3;
+
+  init(calling) := f-test;
+  next(calling) :=
+    case
+      calling = f-test : f-fact-0;
+      calling = f-fact-0 & m-fact.done : f-fact-1;
+      calling = f-fact-1 & m-fact.done : f-test;
+      TRUE : f-test;
+    esac;
+
 
 MODULE fact(main)
 VAR
   i : 0..255;
   n : 0..255;
   done : boolean;
+  computing : boolean;
   return : 0..255;
 ASSIGN
   init(done) := FALSE;
   next(done) :=
     case
       i = 0 : TRUE;
+      TRUE : FALSE;
+    esac;
+
+  init(computing) := FALSE;
+  next(computing) :=
+    case
+      done : FALSE;
+      main.calling = f-fact-0 : TRUE;
+      main.calling = f-fact-1 : TRUE;
       TRUE : FALSE;
     esac;
 
@@ -29,9 +62,22 @@ ASSIGN
       TRUE : return;
     esac;
 
-  init(i) := main.value;
-  next(i) := i = 0 ? i : i - 1;
+  init(i) := main.x;
+  next(i) :=
+    case
+      main.calling = f-fact-0 & !computing : main.x;
+      main.calling = f-fact-1 & !computing : main.y;
+      TRUE : i = 0 ? i : i - 1;
+    esac;
 
   init(n) := 1;
-  next(n) := (i = 0 ? n : n * i) mod 256;
+  next(n) :=
+    case
+      main.calling = f-fact-0 & !computing : 1;
+      main.calling = f-fact-1 & !computing : 1;
+      TRUE : (i = 0 ? n : n * i) mod 256;
+    esac;
 
+--CTLSPEC AG (main.factorial.done = TRUE -> main.factorial.i = 0)
+--CTLSPEC AG (main.result != 120)
+--CTLSPEC !(EF (main.factorial.done & main.factorial.return = 0))
