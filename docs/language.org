@@ -186,4 +186,14 @@
    Factorial is a simple program to demonstrate tail call
    recursion. With tail call recursion "stack frames" can be reused,
    so no extra state is necessary.
-
+* Some Assumptions
+  - We will assume that numbers are completely random, which is not
+    necessarily the case and may cause infinite arbitration in certain
+    protocols (e.g., the token passing protocol).
+  - Anything that occurs within a single state is atomic. For example
+    in a single function call multiple outputs may be changed at
+    once. In reality there will be a small delay between the changes
+    in the outputs. This probably won't have any affect on anything,
+    but it could potentially be an issue in the simple bit
+    communication protocol if we set the data bit, and the lock bit in
+    the same function.
