@@ -35,5 +35,8 @@
 
 ;; Node that uses factorial.
 (node test
-      (let ((x (fact 3 1))
-            (y (fact 5 1)))))
+      (((byte x) 0)
+       ((byte y) 3))
+
+      (set x (fact x 1))
+      (set y (fact y 1)))
