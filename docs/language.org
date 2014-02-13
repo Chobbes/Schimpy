@@ -197,3 +197,5 @@
     but it could potentially be an issue in the simple bit
     communication protocol if we set the data bit, and the lock bit in
     the same function.
+  - There is an assumption that the single bit channels will always be
+    read correctly.
