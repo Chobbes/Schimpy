@@ -10,3 +10,8 @@
   (if (eq 0 i)
       n
       (fact (- i 1) (* i n))))
+
+;; Node that uses factorial.
+(node test
+      (let ((x (fact 3 1))
+            (y (fact 5 1)))))
