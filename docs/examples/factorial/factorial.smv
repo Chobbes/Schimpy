@@ -16,10 +16,10 @@ VAR
   calling : {f-test, f-fact-0, f-fact-1};
 ASSIGN
   init(x) := 0;
-  next(x) := (calling = f-fact-0 & m-fact.done) ? m-fact.return : 0;
+  next(x) := (calling = f-fact-0 & m-fact.done) ? m-fact.return : x;
   
   init(y) := 3;
-  next(y) := (calling = f-fact-1 & m-fact.done) ? m-fact.return : 3;
+  next(y) := (calling = f-fact-1 & m-fact.done) ? m-fact.return : y;
 
   init(calling) := f-test;
   next(calling) :=
