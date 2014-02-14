@@ -41,6 +41,7 @@ ASSIGN
   init(compute_state) := waiting;
   next(compute_state) :=
     case
+      compute_state = done : waiting;
       main.calling = f-fact-0 & i = 0 : done;
       main.calling = f-fact-0 : computing;
       main.calling = f-fact-1 : computing;
