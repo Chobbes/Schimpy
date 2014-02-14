@@ -27,7 +27,7 @@ ASSIGN
       calling = f-test : f-fact-0;
       calling = f-fact-0 & m-fact.compute_state = done : f-fact-1;
       calling = f-fact-1 & m-fact.compute_state = done : f-test;
-      TRUE : f-test;
+      TRUE : calling;
     esac;
 
 
