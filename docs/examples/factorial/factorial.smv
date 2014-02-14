@@ -16,17 +16,17 @@ VAR
   calling : {f-test, f-fact-0, f-fact-1};
 ASSIGN
   init(x) := 0;
-  next(x) := (calling = f-fact-0 & m-fact.done) ? m-fact.return : x;
+  next(x) := (calling = f-fact-0 & m-fact.compute_state = done) ? m-fact.return : x;
   
   init(y) := 3;
-  next(y) := (calling = f-fact-1 & m-fact.done) ? m-fact.return : y;
+  next(y) := (calling = f-fact-1 & m-fact.compute_state = done) ? m-fact.return : y;
 
   init(calling) := f-test;
   next(calling) :=
     case
       calling = f-test : f-fact-0;
-      calling = f-fact-0 & m-fact.done : f-fact-1;
-      calling = f-fact-1 & m-fact.done : f-test;
+      calling = f-fact-0 & m-fact.compute_state = done : f-fact-1;
+      calling = f-fact-1 & m-fact.compute_state = done : f-test;
       TRUE : f-test;
     esac;
 
@@ -35,25 +35,16 @@ MODULE fact(main)
 VAR
   i : 0..255;
   n : 0..255;
-  done : boolean;
-  computing : boolean;
+  compute_state : {waiting, computing, done};
   return : 0..255;
 ASSIGN
-  init(done) := FALSE;
-  next(done) :=
+  init(compute_state) := waiting;
+  next(compute_state) :=
     case
-      done : FALSE;
-      i = 0 : TRUE;
-      TRUE : FALSE;
-    esac;
-
-  init(computing) := FALSE;
-  next(computing) :=
-    case
-      done : FALSE;
-      main.calling = f-fact-0 : TRUE;
-      main.calling = f-fact-1 : TRUE;
-      TRUE : FALSE;
+      main.calling = f-fact-0 & i = 0 : done;
+      main.calling = f-fact-0 : computing;
+      main.calling = f-fact-1 : computing;
+      TRUE : waiting;
     esac;
 
   init(return) := 0; -- Doesn't really matter?
@@ -66,16 +57,16 @@ ASSIGN
   init(i) := main.x;
   next(i) :=
     case
-      main.calling = f-fact-0 & !computing : main.x;
-      main.calling = f-fact-1 & !computing : main.y;
+      main.calling = f-fact-0 & compute_state = waiting : main.x;
+      main.calling = f-fact-1 & compute_state = waiting : main.y;
       TRUE : i = 0 ? i : i - 1;
     esac;
 
   init(n) := 1;
   next(n) :=
     case
-      main.calling = f-fact-0 & !computing : 1;
-      main.calling = f-fact-1 & !computing : 1;
+      main.calling = f-fact-0 & compute_state = waiting : 1;
+      main.calling = f-fact-1 & compute_state = waiting : 1;
       TRUE : (i = 0 ? n : n * i) mod 256;
     esac;
 
