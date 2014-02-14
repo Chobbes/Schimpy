@@ -42,6 +42,7 @@ ASSIGN
   init(done) := FALSE;
   next(done) :=
     case
+      done : FALSE;
       i = 0 : TRUE;
       TRUE : FALSE;
     esac;
