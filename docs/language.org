@@ -13,8 +13,14 @@
    and FALSE is LOW). Output variables act mostly the same as regular
    variables, except that their value will be reflected in the digital
    pins they are supposed to represent on the Arduino.
-** Int
-   16-bit integers
+** Integers
+   Ranges for integers need to be allowed. In particular we need to be
+   able to have integers with only a few bits of state. The less state
+   we waste the better.
+
+   I think we can fairly easily support something like the stdint
+   types from C, and we can support an arbitrary amount of bits from
+   size 1 to size 32. For instance we can have int7_t and uint9_t.
 ** Byte
    Single 8-bit bytes. Can use ascii character literals.
 ** Boolean
