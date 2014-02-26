@@ -100,10 +100,13 @@
     that is not itself recursive may call any function in this manner
     whether or not the other function is recursive.
 *** Recursive Functions
-    Functions which call themselves, either directly or indirectly
-    (for instance a function *f* could call another function *g*,
-    where *g* calls *f*) need a bit of special treatment because we
-    can not provide a proper call stack.
+    Any function which calls itself must do so in a tail recursive
+    fashion. A function may not indirectly recurse (e.g., *f* calls
+    *g* which in turn calls *f*, because the previous state of *f*
+    will still be needed).
+
+    Otherwise the exact same restrictions for non-recursive functions
+    holds.
 * Examples
   Currently working on some examples for the language to figure out
   any oddities with the language, as well as how things should be
