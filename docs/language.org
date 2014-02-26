@@ -23,6 +23,9 @@
    size 1 to size 32. For instance we can have int7_t and uint9_t.
 ** Byte
    Single 8-bit bytes. Can use ascii character literals.
+
+   These are somewhat redundant with integers now that we have
+   arbitrary bits for the integers. We might scrap these.
 ** Boolean
    True and false values.
 * Nodes
