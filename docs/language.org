@@ -63,6 +63,10 @@
       (write.bit read.bit)
       (write.lock read.lock)))
   #+END_SRC
+
+  When translating to NuSMV the network is turned into the main
+  module, while the individual nodes are made into their own modules
+  which are instantiated within the main module.
 * Macros
   Macros are essentially function calls, but when the model checking
   code is generated they are expanded into single expressions. As a
