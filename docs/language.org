@@ -28,6 +28,11 @@
    arbitrary bits for the integers. We might scrap these.
 ** Boolean
    True and false values.
+* Expressions
+** Simple expressions
+   #+BEGIN_SRC bnf
+     <exp> ::= <constant> | <variable> | <function-application>
+   #+END_SRC
 * Nodes
   These represent the main program which is a single thread of
   execution on a single processor. Each node contains a single state
@@ -93,12 +98,57 @@
 
     Since these functions are basically beefier macros we can call
     them from almost anywhere within another function. The one
-    restriction is that all I/O must be done before any function
-    call. The reason for this is that a function call can cause
+    restriction is that all I/O must be done before any other function
+    calls. The reason for this is that a function call can cause
     modifications to the I/O variables, so when the function returns
     they will not be in the same state as before. In fact any function
     that is not itself recursive may call any function in this manner
     whether or not the other function is recursive.
+
+**** Multiple Calls
+    A problem occurs when the same function is called multiple times
+    in a function. For instance if we have an expression
+
+    #+BEGIN_SRC lisp
+      (eq (fact 0) (fact 1))
+    #+END_SRC
+
+    Then we will need additional storage to hold one of the results
+    from the factorial computation while the second factorial
+    computation is being performed. We need to know when exactly an
+    additional temporary variable is necessary.
+
+    It is clear that it is not always a necessity when a function is
+    called multiple times, for instance in the expression:
+
+    #+BEGIN_SRC lisp
+      (if (eq 6 (fact 3)) (fact 0) (fact 1))
+    #+END_SRC
+
+    No additional state is necessary. The additional state is only
+    necessary when we have to immediately perform operations on
+    multiple results from the same function call, when the results for
+    the function call are not stored in any additional variables
+    beforehand.
+
+    So, this means that when we have multiple branches of computation
+    that each call a function once we don't need any additional
+    state. Furthermore if we have, for instance, something like:
+
+    #+BEGIN_SRC lisp
+      (if true (eq (fact 0) (fact 1)) (eq (fact 1) (fact 2)))
+    #+END_SRC
+
+    Then while each branch needs a temporary variable to store a
+    result from fact only one temporary variable is necessary since
+    the computations may not occur at the same time.
+
+    We need to, therefore, figure out how many times a function is
+    called in each simple expression. The number of temporary
+    variables needed for a function call is thus given by the largest
+    number of times a function call can occur in a simple expression
+    minus one (since one of the results can just be from the functions
+    return value).
 *** Recursive Functions
     Any function which calls itself must do so in a tail recursive
     fashion. A function may not indirectly recurse (e.g., *f* calls
