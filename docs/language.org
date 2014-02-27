@@ -181,7 +181,12 @@
 
      The easiest solution is probably to keep track of output in
      separate variables and assign them like return values... However,
-     this will be delayed.
+     this will be delayed. Thus this solution is not viable --
+     protocols that rely on switching outputs and waiting for certain
+     inputs can not be written within functions in this case.
+
+     This doesn't affect inputs because we are just grabbing the value
+     for the inputs, not writing to them.
 *** Recursive Functions
     Any function which calls itself must do so in a tail recursive
     fashion. A function may not indirectly recurse (e.g., *f* calls
