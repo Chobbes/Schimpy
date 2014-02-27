@@ -41,6 +41,28 @@
   once in the state transition function, and it may only be used in
   expressions before being modified -- this allows for the model
   checker code to be much simpler.
+* Networks
+  We need to be able to create networks in the language so we can
+  automatically make models for entire networks, as well as make
+  topology files for the Arduino emulator (and hopefully have
+  everything immediately testable with Emulard).
+
+  The basic idea is to assign names to the different nodes, and then
+  specify the connections between them. We will use the names of the
+  input / output variables to specify the connections.
+
+  #+BEGIN_SRC lisp
+    ;; Example for how to declare a network.
+    (network
+     ;; List of name, node pairs.
+     ((read reader)
+      (write writer))
+    
+     ;; List of connections output -> input
+     ((read.ack write.ack)
+      (write.bit read.bit)
+      (write.lock read.lock)))
+  #+END_SRC
 * Macros
   Macros are essentially function calls, but when the model checking
   code is generated they are expanded into single expressions. As a
