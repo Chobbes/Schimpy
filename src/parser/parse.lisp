@@ -27,3 +27,18 @@
     (setf (readtable-case *readtable*) :preserve)
     (let ((sexp (read file nil)))
       (if sexp (cons sexp (grab-sexps file)) nil))))
+
+(defun funcp (part)
+  "Check if a part of a Schimpy program is a function."
+  (eq (car part) '|define|))
+
+(defun func-name (func)
+  "Extract the function name for a Schimpy function."
+  (caadr func))
+
+(defun all-func-names (program)
+  "Gets a list containing all of the function names."
+  (let ((part (car program)))
+    (cond
+      ((null program) ())
+      ((funcp part) (cons (func-name part) (all-func-names (cdr program)))))))
