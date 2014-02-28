@@ -23,4 +23,4 @@
 (defun grab-sexps (file)
   "Function grabs a list of all of the sexps within a file."
   (let ((sexp (read file nil)))
-    (if sexp (cons sexp (grab-sexps file)) '(sexp))))
+    (if sexp (cons sexp (grab-sexps file)) nil)))
