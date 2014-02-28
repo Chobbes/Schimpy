@@ -33,12 +33,23 @@
   (eq (car part) '|define|))
 
 (defun func-name (func)
-  "Extract the function name for a Schimpy function."
+  "Extract the function name for a Schimpy function as a symbol."
   (caadr func))
 
 (defun all-func-names (program)
   "Gets a list containing all of the function names."
-  (let ((part (car program)))
-    (cond
-      ((null program) ())
-      ((funcp part) (cons (func-name part) (all-func-names (cdr program)))))))
+  (let ((functions (remove-if-not #'funcp program)))
+    (mapcar #'func-name functions)))
+
+(defun nodep (part)
+  "Check if a part of a Schimpy program is a node."
+  (eq (car part) '|node|))
+
+(defun node-name (node)
+  "Extract the node name for a Schimpy node as a symbol"
+  (cadr node))
+
+(defun all-node-names (program)
+  "Gets a list containing all of the node names in a Schimpy program."
+  (let ((nodes (remove-if-not #'nodep program)))
+    (mapcar #'node-name nodes)))
