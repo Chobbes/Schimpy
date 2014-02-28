@@ -192,6 +192,10 @@
     return variable for the *f* module, but then when we calculate
     *g* this return is overwritten.
 
+    Thus we actually have to check all possible functions that can be
+    called from our functions, and then add temporary variables
+    accordingly. It's also possible to optimize the order.
+
 **** TODO Outputs
      There is a problem with using outputs with functions -- it is not
      clear when to modify the output. This doesn't affect inputs
