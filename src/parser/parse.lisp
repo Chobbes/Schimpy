@@ -19,3 +19,8 @@
 ;; ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 ;; CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
+
+(defun grab-sexps (file)
+  "Function grabs a list of all of the sexps within a file."
+  (let ((sexp (read file nil)))
+    (if sexp (cons sexp (grab-sexps file)) '(sexp))))
