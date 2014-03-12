@@ -16,7 +16,7 @@
      boolean_declaration = "(", [whitespace], "Bool", whitespace, variable, whitespace, expression, [whitespace], ")"
    #+END_SRC
 
-   Where the *<expression>* provides the initial value of the variable.
+   Where the *expression* provides the initial value of the variable.
 ** Input
    Single boolean value representing an input from a digital pin on an
    Arduino (TRUE is HIGH, and FALSE is LOW). Input values are updated
