@@ -2,28 +2,6 @@
 #+AUTHOR: Calvin Beck
 #+OPTIONS: ^:{}
 
-* Syntax
-** Expressions
-*** Literals
-    A single literal be it boolean, or integer forms an expression.
-*** Identifier
-*** Arithmetic Operators
-**** Addition
-**** Multiplication
-**** Modulo
-*** Comparison Operators
-**** Equality
-**** Inequality
-**** Less Than
-**** Less Than or Equal To
-**** Greater Than
-**** Greater Than or Equal To
-*** Boolean Operators
-**** Logical And
-**** Logical Or
-**** Unary Not
-*** If Then Else
-
 * Data Types
 ** Input
    Single boolean value representing an input from a digital pin on an
@@ -49,7 +27,49 @@
    These are somewhat redundant with integers now that we have
    arbitrary bits for the integers. We might scrap these.
 ** Boolean
-   True and false values.
+   TRUE and FALSE values.
+** Symbolic Enums
+   It makes sense to support groups of symbols as this will help to
+   reduce the state space needed for certain programs. For instance
+   with the token passing protocol we could have symbols for READING,
+   WAITING, and PASSING which should fit in about two bits of state,
+   and is far more readable than having integers of an arbitrary size.
+
+   Symbolic enums should have names in all capital letters to
+   differentiate them from other identifiers.
+
+   #+BEGIN_SRC bnf
+     <enum_identifier> ::= <capital_letter> <enum_identifier> | <capital_letter>
+   #+END_SRC
+
+   A symbol may not override key words either. Each enum has a set of
+   symbols, but the symbols are all in global scope so they must be
+   unique. This way we can uniquely identify the enum type by the
+   symbol's identifier.
+* Syntax
+** Expressions
+*** Literals
+    A single literal be it boolean, or integer forms an expression.
+*** Identifier
+    An identifier is part of an expression as long as it has an
+    appropriate type. It can not be a function as we do not support
+    first class functions.
+*** Arithmetic Operators
+**** Addition
+**** Multiplication
+**** Modulo
+*** Comparison Operators
+**** Equality
+**** Inequality
+**** Less Than
+**** Less Than or Equal To
+**** Greater Than
+**** Greater Than or Equal To
+*** Boolean Operators
+**** Logical And
+**** Logical Or
+**** Unary Not
+*** If Then Else
 * Expressions
 ** Simple expressions
    #+BEGIN_SRC bnf
