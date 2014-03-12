@@ -3,6 +3,12 @@
 #+OPTIONS: ^:{}
 
 * Data Types
+** Boolean
+   TRUE and FALSE values. Single bit of state.
+
+   #+BEGIN_SRC bnf
+     <boolean_identifier> :: TRUE | FALSE
+   #+END_SRC
 ** Input
    Single boolean value representing an input from a digital pin on an
    Arduino (TRUE is HIGH, and FALSE is LOW). Input values are updated
@@ -27,13 +33,6 @@
    These are somewhat redundant with integers now that we have
    arbitrary bits for the integers. We might scrap these, but the name
    is vaguely useful even if it's just an uint8_t.
-** Boolean
-   TRUE and FALSE values. Single bit of state.
-
-   #+BEGIN_SRC bnf
-     <boolean_identifier> :: TRUE | FALSE
-   #+END_SRC
-
 ** Symbolic Enums
    It makes sense to support groups of symbols as this will help to
    reduce the state space needed for certain programs. For instance
