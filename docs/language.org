@@ -65,8 +65,9 @@
   first letter in the function name is capitalized.
 
   #+BEGIN_SRC bnf
-    function_identifier = upper_case_letter, {lower_case_letter | upper_case_letter | digit}
+    function = upper_case_letter, {lower_case_letter | upper_case_letter | digit}
   #+END_SRC
+
 * Syntax
 ** Expressions
 *** Literals
