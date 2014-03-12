@@ -25,7 +25,8 @@
    Single 8-bit bytes. Can use ascii character literals.
 
    These are somewhat redundant with integers now that we have
-   arbitrary bits for the integers. We might scrap these.
+   arbitrary bits for the integers. We might scrap these, but the name
+   is vaguely useful even if it's just an uint8_t.
 ** Boolean
    TRUE and FALSE values. Single bit of state.
 
