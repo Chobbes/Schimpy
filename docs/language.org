@@ -52,20 +52,34 @@
    differentiate them from other identifiers.
 
    #+BEGIN_SRC bnf
-     symbol = capital_letter, enum_identifier | capital_letter
+     symbol = capital_letter, symbol | capital_letter
    #+END_SRC
 
    A symbol may not override key words either. Each enum has a set of
    symbols, but the symbols are all in global scope so they must be
    unique. This way we can uniquely identify the enum type by the
    symbol's identifier.
+
+   The symbolic enum type must be defined at file scope like
+   functions.
+
+   #+BEGIN_SRC bnf
+     enum = "(", [whitespace], "enum", whitespace, enum_identifier, whitespace, symbol, {whitespace, symbol}, [whitespace], ")"
+     enum_identifier = capital_letter, {lower_case_letter | capital_letter | digit}
+   #+END_SRC
+
+   A variable with a symbolic type may be declared with the following format:
+
+   #+BEGIN_SRC bnf
+     "(", [whitespace], enum_identifier, whitespace, variable, whitespace, expression, [whitespace], ")"
+   #+END_SRC
 * Functions
   Functions are not first class citizens in the languages. Each
   function has an identifier which must be in camel case where the
   first letter in the function name is capitalized.
 
   #+BEGIN_SRC bnf
-    function = upper_case_letter, {lower_case_letter | upper_case_letter | digit}
+    function = capital_letter, {lower_case_letter | capital_letter | digit}
   #+END_SRC
 
   This allows us to tell when something is a function right away. Note
