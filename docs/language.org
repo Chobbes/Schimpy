@@ -69,8 +69,11 @@
     first class functions.
 
     #+BEGIN_SRC bnf
-
+      variable = lower_case_letter, {lower_case_letter | upper_case_letter | digit}
     #+END_SRC
+
+    Variables must use camel case, starting with a lower case letter
+    to distinguish them from functions and symbols.
 *** Arithmetic Operators
 **** Addition
 **** Multiplication
@@ -90,7 +93,7 @@
 * Expressions
 ** Simple expressions
    #+BEGIN_SRC bnf
-     <exp> ::= <constant> | <variable> | <function-application>
+     expressions = constant | variable | function_application
    #+END_SRC
 * Nodes
   These represent the main program which is a single thread of
