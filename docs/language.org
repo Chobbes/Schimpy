@@ -73,6 +73,8 @@
    #+BEGIN_SRC bnf
      "(", [whitespace], enum_identifier, whitespace, variable, whitespace, expression, [whitespace], ")"
    #+END_SRC
+
+   The expression must return a symbol value that is within the enum.
 * Functions
   Functions are not first class citizens in the languages. Each
   function has an identifier which must be in camel case where the
