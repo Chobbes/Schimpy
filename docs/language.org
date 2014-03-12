@@ -2,6 +2,28 @@
 #+AUTHOR: Calvin Beck
 #+OPTIONS: ^:{}
 
+* Syntax
+** Expressions
+*** Literals
+    A single literal be it boolean, or integer forms an expression.
+*** Identifier
+*** Arithmetic Operators
+**** Addition
+**** Multiplication
+**** Modulo
+*** Comparison Operators
+**** Equality
+**** Inequality
+**** Less Than
+**** Less Than or Equal To
+**** Greater Than
+**** Greater Than or Equal To
+*** Boolean Operators
+**** Logical And
+**** Logical Or
+**** Unary Not
+*** If Then Else
+
 * Data Types
 ** Input
    Single boolean value representing an input from a digital pin on an
