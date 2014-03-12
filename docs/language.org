@@ -13,7 +13,7 @@
    To declare a boolean variable:
 
    #+BEGIN_SRC bnf
-     <boolean_declaration> ::= "(" "Bool" <variable_identifier>  <expression> ")"
+     <boolean_declaration> ::= "(" "Bool" <variable>  <expression> ")"
    #+END_SRC
 
    Where the *<expression>* provides the initial value of the variable.
