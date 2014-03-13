@@ -183,8 +183,17 @@
      #+END_SRC
 *** Boolean Operators
 **** Logical And
+     #+BEGIN_SRC bnf
+       logical_and = "(", [whitespace], "And", whitespace, expression_list, [whitespace], ")"
+     #+END_SRC
 **** Logical Or
-**** Unary Not
+     #+BEGIN_SRC bnf
+       logical_or = "(", [whitespace], "Or", whitespace, expression_list, [whitespace], ")"
+     #+END_SRC
+**** Logical Negation
+     #+BEGIN_SRC bnf
+       logical_not = "(", [whitespace], "Not", whitespace, expression, [whitespace], ")"
+     #+END_SRC
 *** If Then Else
 * Expressions
 ** Simple expressions
