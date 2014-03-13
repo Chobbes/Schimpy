@@ -22,6 +22,15 @@
    Arduino (TRUE is HIGH, and FALSE is LOW). Input values are updated
    sporadically, but they are guaranteed to not change within a
    function.
+
+   An input variable may be described as below.
+
+   #+BEGIN_SRC bnf
+     input_declartion = "(", [whitespace], "Input", whitespace, variable, whitespace, integer, [whitespace], ")"
+   #+END_SRC
+
+   The integer value is the port number on the arduino. Only one
+   variable for a certain input port may be defined.
 ** Output
    Single boolean value for the output on a digital pin (TRUE is HIGH,
    and FALSE is LOW). Output variables act mostly the same as regular
