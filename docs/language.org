@@ -134,7 +134,7 @@
     first class functions.
 
     #+BEGIN_SRC bnf
-      variable = lower_case_letter, {lower_case_letter | upper_case_letter | digit}
+      variable = lower_case_letter, {lower_case_letter | capital_letter | digit}
     #+END_SRC
 
     Variables must use camel case, starting with a lower case letter
