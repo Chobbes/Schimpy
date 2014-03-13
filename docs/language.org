@@ -205,7 +205,8 @@
     #+BEGIN_SRC c
       c_ReturnType FunctionName(c_Type1 arg1, c_Type2 arg2, ... , c_TypeN argN)
       {
-	  return c_expression;
+          read_outputs();  /* Need to read all of the outputs for a node each time we call a function */
+          return c_expression;
       }
     #+END_SRC
 
