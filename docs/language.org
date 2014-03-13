@@ -134,6 +134,22 @@
   #+END_SRC
 
   The final type in the type list is the return value, while the rest are the value of the arguments in order.
+** C Translation
+   A function definition of the form
+
+   #+BEGIN_SRC lisp
+     (define (FunctionName arg1 arg2 ... argN) (Type1 Type2 ... TypeN ReturnType)
+       expression)
+   #+END_SRC
+
+   Would be translated into C as follows:
+
+   #+BEGIN_SRC c
+     c_ReturnType FunctionName(c_Type1 arg1, c_Type2 arg2, ... , c_TypeN argN)
+     {
+         return c_expression;
+     }
+   #+END_SRC
 * Syntax
 ** Expressions
 *** Literals
