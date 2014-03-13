@@ -484,17 +484,17 @@
      #+BEGIN_SRC c
        (c_exp1, c_exp2, ... , c_expN)
      #+END_SRC
-*** Write
-    Write is essentially a predefined function which sets the value of
-    an output when given the output, and a boolean value to change the
-    output's value to.
+*** Set
+    Set is essentially a predefined function which sets the value of a
+    given variable. With outputs this has the effect of writing to the
+    digital output on an Arduino.
 
     #+BEGIN_SRC bnf
-      write = "(", [whitespace], "Write", whitespace, variable, whitespace, expression, [whitespace], ")"
+      set = "(", [whitespace], "Set", whitespace, variable, whitespace, expression, [whitespace], ")"
     #+END_SRC
 
-    Note that the variable must be an output variable, and the
-    expression must return a boolean value.
+    Note that the variable must be some kind of state variable, and
+    the expression must have the same type as the variable.
 ** Let Expressions
    Let bindings are allowed in a restricted set of places (essentially
    at the top of a function). These allow one to define extra
