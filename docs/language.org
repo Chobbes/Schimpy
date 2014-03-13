@@ -207,43 +207,143 @@
      #+BEGIN_SRC bnf
        equality = "(", [whitespace], "=", whitespace, expression, whitespace, expression, [whitespace], ")"
      #+END_SRC
+***** C Translation
+      #+BEGIN_SRC lisp
+        (= exp1 exp2)
+      #+END_SRC
+
+      Should translate to
+
+      #+BEGIN_SRC c
+        (c_exp1 == c_exp2)
+      #+END_SRC
 **** Inequality
      #+BEGIN_SRC bnf
        inequality = "(", [whitespace], "!=", whitespace, expression, whitespace, expression, [whitespace], ")"
      #+END_SRC
+***** C Translation
+      #+BEGIN_SRC lisp
+        (!= exp1 exp2)
+      #+END_SRC
+
+      Should translate to
+
+      #+BEGIN_SRC c
+        (c_exp1 != c_exp2)
+      #+END_SRC
 **** Less Than
      #+BEGIN_SRC bnf
        less_than = "(", [whitespace], "<", whitespace, expression, whitespace, expression, [whitespace], ")"
      #+END_SRC
+***** C Translation
+      #+BEGIN_SRC lisp
+        (< exp1 exp2)
+      #+END_SRC
+
+      Should translate to
+
+      #+BEGIN_SRC c
+        (c_exp1 < c_exp2)
+      #+END_SRC
 **** Less Than or Equal To
      #+BEGIN_SRC bnf
        less_than_or_equal = "(", [whitespace], "<=", whitespace, expression, whitespace, expression, [whitespace], ")"
      #+END_SRC
+***** C Translation
+      #+BEGIN_SRC lisp
+        (<= exp1 exp2)
+      #+END_SRC
+
+      Should translate to
+
+      #+BEGIN_SRC c
+        (c_exp1 <= c_exp2)
+      #+END_SRC
 **** Greater Than
      #+BEGIN_SRC bnf
        greater_than = "(", [whitespace], ">", whitespace, expression, whitespace, expression, [whitespace], ")"
      #+END_SRC
+***** C Translation
+      #+BEGIN_SRC lisp
+        (> exp1 exp2)
+      #+END_SRC
+
+      Should translate to
+
+      #+BEGIN_SRC c
+        (c_exp1 > c_exp2)
+      #+END_SRC
 **** Greater Than or Equal To
      #+BEGIN_SRC bnf
        greater_than_or_equal = "(", [whitespace], ">=", whitespace, expression, whitespace, expression, [whitespace], ")"
      #+END_SRC
+***** C Translation
+      #+BEGIN_SRC lisp
+        (>= exp1 exp2)
+      #+END_SRC
+
+      Should translate to
+
+      #+BEGIN_SRC c
+        (c_exp1 >= c_exp2)
+      #+END_SRC
 *** Boolean Operators
 **** Logical And
      #+BEGIN_SRC bnf
        logical_and = "(", [whitespace], "And", whitespace, expression_list, [whitespace], ")"
      #+END_SRC
+***** C Translation
+      #+BEGIN_SRC lisp
+        (And exp1 exp2 ... expN)
+      #+END_SRC
+
+      Should translate to
+
+      #+BEGIN_SRC c
+        (c_exp1 && c_exp2 && ... && c_expN)
+      #+END_SRC
 **** Logical Or
      #+BEGIN_SRC bnf
        logical_or = "(", [whitespace], "Or", whitespace, expression_list, [whitespace], ")"
      #+END_SRC
+***** C Translation
+      #+BEGIN_SRC lisp
+        (Or exp1 exp2 ... expN)
+      #+END_SRC
+
+      Should translate to
+
+      #+BEGIN_SRC c
+        (c_exp1 || c_exp2 || ... || c_expN)
+      #+END_SRC
 **** Logical Negation
      #+BEGIN_SRC bnf
        logical_not = "(", [whitespace], "Not", whitespace, expression, [whitespace], ")"
      #+END_SRC
+***** C Translation
+      #+BEGIN_SRC lisp
+        (Not exp)
+      #+END_SRC
+
+      Should translate to
+
+      #+BEGIN_SRC c
+        (!c_exp)
+      #+END_SRC
 *** If Then Else
      #+BEGIN_SRC bnf
        if_expression = "(", [whitespace], "if", whitespace, expression, whitespace, expression, whitespace, expression, [whitespace], ")"
      #+END_SRC
+***** C Translation
+      #+BEGIN_SRC lisp
+        (if cond exp2 exp3)
+      #+END_SRC
+
+      Should translate to
+
+      #+BEGIN_SRC c
+        (c_cond ? c_exp1 : c_exp2)
+      #+END_SRC
 * Expressions
 ** Simple expressions
    #+BEGIN_SRC bnf
