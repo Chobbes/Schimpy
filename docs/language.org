@@ -224,6 +224,10 @@
    #+END_SRC
 
    There is no type list for macros as they are just inserted into the code.
+
+   Macros are not translated into the other languages. Instead they
+   are expanded before the code is translated into any language during
+   a preprocessing step.
 ** Expressions
 *** Literals
     A single literal be it boolean, or integer forms an expression.
