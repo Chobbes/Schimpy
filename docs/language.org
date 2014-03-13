@@ -144,7 +144,7 @@
    #+END_SRC
 
    This allows us to tell when something is a function right away. Note
-   that variable type declarations also follow this format.
+   that variable type declarations also follow this format, as do macros.
 
    A function is defined as follows
 
@@ -175,6 +175,18 @@
     This may get a bit strange with the expressions that don't return
     anything. We can probably use the comma operator in C to solve
     the issues with expressions that don't contribute to the return value.
+** Macros
+   #+BEGIN_SRC bnf
+     macro = capital_letter, {lower_case_letter | capital_letter | digit}
+   #+END_SRC
+
+   A macro is defined as follows.
+
+   #+BEGIN_SRC bnf
+     macro_definition = "(", [whitespace], "macro", whitespace, "(", [whitespace], macro, whitespace, variable_list, [whitespace], ")", whitespace, expression, ")"
+   #+END_SRC
+
+   There is no type list for macros as they are just inserted into the code.
 ** Expressions
 *** Literals
     A single literal be it boolean, or integer forms an expression.
