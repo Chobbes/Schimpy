@@ -29,13 +29,23 @@
      input_declartion = "(", [whitespace], "Input", whitespace, variable, whitespace, integer, [whitespace], ")"
    #+END_SRC
 
-   The integer value is the port number on the arduino. Only one
-   variable for a certain input port may be defined.
+   The integer value is the port number on the arduino, and this port
+   may not be used with an output as well. Only one variable for a
+   certain input port may be defined.
 ** Output
    Single boolean value for the output on a digital pin (TRUE is HIGH,
    and FALSE is LOW). Output variables act mostly the same as regular
    variables, except that their value will be reflected in the digital
    pins they are supposed to represent on the Arduino.
+
+   An input variable may be described as below.
+
+   #+BEGIN_SRC bnf
+     output_declartion = "(", [whitespace], "Output", whitespace, variable, whitespace, integer, whitespace, expression, [whitespace], ")"
+   #+END_SRC
+
+   Only one output variable can be declared for a port on the arduino,
+   and this port may not be used for an input as well.
 ** Integers
    Ranges for integers need to be allowed. In particular we need to be
    able to have integers with only a few bits of state. The less state
