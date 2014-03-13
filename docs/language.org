@@ -23,6 +23,19 @@
   - Output
   - Char
   - enum
+* Order of Execution
+  The order of execution is important for our models, and
+  understanding the control flow of the program. Thus it should be
+  simple and easy to follow. We will adopt the convention where,
+  given:
+
+  #+BEGIN_SRC lisp
+    (Function exp1 exp2 ... expN)
+  #+END_SRC
+
+  *exp1* will be executed first, then *exp2*, and so on. Once *expN*
+  has been executed the function call itself may be executed. The
+  order of execution is "left to right".
 * Syntax
 ** Data Types
 *** Boolean
