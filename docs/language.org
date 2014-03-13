@@ -195,6 +195,9 @@
        logical_not = "(", [whitespace], "Not", whitespace, expression, [whitespace], ")"
      #+END_SRC
 *** If Then Else
+     #+BEGIN_SRC bnf
+       if_expression = "(", [whitespace], "if", whitespace, expression, whitespace, expression, whitespace, expression, [whitespace], ")"
+     #+END_SRC
 * Expressions
 ** Simple expressions
    #+BEGIN_SRC bnf
