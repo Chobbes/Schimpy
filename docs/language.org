@@ -58,7 +58,7 @@
    A variable with a signed integer value may be declared as follows:
 
    #+BEGIN_SRC bnf
-     integer_declaration = "(", [whitespace], "Int", integer_range, "_t", whitespace, variable, whitespace, expression, ")"
+     integer_declaration = "(", [whitespace], "Int", integer_range, "_t", whitespace, variable, whitespace, expression, [whitespace], ")"
      integer_range = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23" | "24" | "25" | "26" | "27" | "28" | "29" | "30" | "31" | "32"
    #+END_SRC
 
@@ -75,6 +75,10 @@
    These are somewhat redundant with integers now that we have
    arbitrary bits for the integers. We might scrap these, but the name
    is vaguely useful even if it's just a Uint8_t.
+
+   #+BEGIN_SRC bnf
+     char_declaration = "(", [whitespace], "Char", whitespace, variable, whitespace, expression, [whitespace] ")"
+   #+END_SRC
 ** Symbolic Enums
    It makes sense to support groups of symbols as this will help to
    reduce the state space needed for certain programs. For instance
