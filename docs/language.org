@@ -220,14 +220,16 @@
    A macro is defined as follows.
 
    #+BEGIN_SRC bnf
-     macro_definition = "(", [whitespace], "macro", whitespace, "(", [whitespace], macro, whitespace, variable_list, [whitespace], ")", whitespace, expression, ")"
+     macro_definition = "(", [whitespace], "macro", whitespace, "(", [whitespace], macro, whitespace, variable_list, [whitespace], ")", whitespace, whatever, ")"
    #+END_SRC
 
    There is no type list for macros as they are just inserted into the code.
 
    Macros are not translated into the other languages. Instead they
    are expanded before the code is translated into any language during
-   a preprocessing step.
+   a preprocessing step. Because of how macros work they can take
+   whatever they want for a substitution -- it doesn't have to be
+   valid in the language by itself, only when the substitution occurs.
 ** Expressions
 *** Literals
     A single literal be it boolean, or integer forms an expression.
