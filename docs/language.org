@@ -69,12 +69,12 @@
    #+END_SRC
 
    The expression must yield the initial integer value.
-** Byte
+** Char
    Single 8-bit bytes. Can use ascii character literals.
 
    These are somewhat redundant with integers now that we have
    arbitrary bits for the integers. We might scrap these, but the name
-   is vaguely useful even if it's just an uint8_t.
+   is vaguely useful even if it's just a Uint8_t.
 ** Symbolic Enums
    It makes sense to support groups of symbols as this will help to
    reduce the state space needed for certain programs. For instance
