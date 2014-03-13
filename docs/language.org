@@ -190,6 +190,9 @@
 
     In all cases we simply translate to the variable name.
 *** Arithmetic Operators
+    #+BEGIN_SRC bnf
+      arithmetic_expression = addition | multiplication | modulo | division
+    #+END_SRC
 **** Addition
      #+BEGIN_SRC bnf
        addition = "(", [whitespace], "+", whitespace, expression_list, [whitespace], ")"
@@ -251,6 +254,9 @@
         (c_exp1 / c_exp2)
       #+END_SRC
 *** Comparison Operators
+    #+BEGIN_SRC bnf
+      comparison_expression = equality | inequality | less_than | less_than_or_equal | greater_than | greater_than_or_equal
+    #+END_SRC
 **** Equality
      #+BEGIN_SRC bnf
        equality = "(", [whitespace], "=", whitespace, expression, whitespace, expression, [whitespace], ")"
@@ -336,6 +342,9 @@
         (c_exp1 >= c_exp2)
       #+END_SRC
 *** Boolean Operators
+    #+BEGIN_SRC bnf
+      boolean_expression = logical_and | logical_or | logical_not
+    #+END_SRC
 **** Logical And
      #+BEGIN_SRC bnf
        logical_and = "(", [whitespace], "And", whitespace, expression_list, [whitespace], ")"
@@ -395,7 +404,7 @@
 * Expressions
 ** Simple expressions
    #+BEGIN_SRC bnf
-     expressions = constant | variable | function_application
+     simple_expression = literal | variable | arithmetic_expression | comparison_expression | boolean_expression
    #+END_SRC
 * Nodes
   These represent the main program which is a single thread of
