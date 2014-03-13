@@ -158,11 +158,29 @@
      #+END_SRC
 *** Comparison Operators
 **** Equality
+     #+BEGIN_SRC bnf
+       equality = "(", [whitespace], "=", whitespace, expression, whitespace, expression, [whitespace], ")"
+     #+END_SRC
 **** Inequality
+     #+BEGIN_SRC bnf
+       inequality = "(", [whitespace], "!=", whitespace, expression, whitespace, expression, [whitespace], ")"
+     #+END_SRC
 **** Less Than
+     #+BEGIN_SRC bnf
+       less_than = "(", [whitespace], "<", whitespace, expression, whitespace, expression, [whitespace], ")"
+     #+END_SRC
 **** Less Than or Equal To
+     #+BEGIN_SRC bnf
+       less_than_or_equal = "(", [whitespace], "<=", whitespace, expression, whitespace, expression, [whitespace], ")"
+     #+END_SRC
 **** Greater Than
+     #+BEGIN_SRC bnf
+       greater_than = "(", [whitespace], ">", whitespace, expression, whitespace, expression, [whitespace], ")"
+     #+END_SRC
 **** Greater Than or Equal To
+     #+BEGIN_SRC bnf
+       greater_than_or_equal = "(", [whitespace], ">=", whitespace, expression, whitespace, expression, [whitespace], ")"
+     #+END_SRC
 *** Boolean Operators
 **** Logical And
 **** Logical Or
