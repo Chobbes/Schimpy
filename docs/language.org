@@ -162,14 +162,46 @@
      #+BEGIN_SRC bnf
        multiplication = "(", [whitespace], "*", whitespace, expression_list, [whitespace], ")"
      #+END_SRC
+***** C Translation
+      #+BEGIN_SRC lisp
+        (* exp1 exp2 ... expN)
+      #+END_SRC
+
+      Would translate to the following in C
+
+      #+BEGIN_SRC c
+        (c_exp1 * c_exp2 * ... * c_expN)
+      #+END_SRC
+
+      Where each *c_expK* is the C translation of *expK*.
 **** Modulo
      #+BEGIN_SRC bnf
        modulo = "(", [whitespace], "mod", whitespace, expression, whitespace, expression, [whitespace], ")"
      #+END_SRC
+***** C Translation
+      #+BEGIN_SRC lisp
+        (mod exp1 exp2)
+      #+END_SRC
+
+      Should translate to
+
+      #+BEGIN_SRC c
+        (c_exp1 % c_exp2)
+      #+END_SRC
 **** Division
      #+BEGIN_SRC bnf
        division = "(", [whitespace], "/", whitespace, expression, whitespace, expression, [whitespace], ")"
      #+END_SRC
+***** C Translation
+      #+BEGIN_SRC lisp
+        (/ exp1 exp2)
+      #+END_SRC
+
+      Should translate to
+
+      #+BEGIN_SRC c
+        (c_exp1 / c_exp2)
+      #+END_SRC
 *** Comparison Operators
 **** Equality
      #+BEGIN_SRC bnf
