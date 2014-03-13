@@ -150,6 +150,8 @@
          return c_expression;
      }
    #+END_SRC
+
+   This may get a bit strange with the expressions that don't return anything.
 * Syntax
 ** Expressions
 *** Literals
