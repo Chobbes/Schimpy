@@ -32,7 +32,8 @@
   ; Execution order is a bit weird here. Bit must have the same value as before read_bit_unack is called.
   ; Have to be careful with function calls...
   ; With begin bit is returned.
-  (begin (write ack true) (read_bit_unack lock ack) bit)) ; read_bit_unack is in the tail position.
+  (let ((Bool our_bit bit))
+    (begin (write ack true) (read_bit_unack lock ack) bit)))
 
 (: read_bit_unack Input -> Output -> Boolean -> ())
 (define (read_bit_unack bit lock ack)
