@@ -160,7 +160,7 @@
    A node in the language should have the form:
 
    #+BEGIN_SRC bnf
-     node_declaration = "(", [whitespace], "node", whitespace, node_identifier, whitespace, variable_declaration_list, whitespace, expression, [whitespace], ")"
+     node_declaration = "(", [whitespace], "node", whitespace, node_identifier, whitespace, let_expression, [whitespace], ")"
      node_declaration_list = "(", [whitespace], [node_declaration], {whitespace, node_declaration}, [whitespace], ")"
      node_identifier = capital_letter, {letter | digit}
    #+END_SRC
