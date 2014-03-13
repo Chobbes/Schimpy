@@ -472,6 +472,9 @@
 
     Note that the expressions still follow the regular execution
     order, and are evaluated from left to right.
+
+    Unfortunately I do not think there is a good way to have a
+    "begin0" which returns the result of the first one in C.
 **** C Translation
      A begin expression like:
 
