@@ -9,8 +9,8 @@
   - define
   - macro
   - Byte
-  - Int*_t
-  - Uint*_t
+  - Int*
+  - Uint*
   - And
   - Or
   - Not
@@ -96,14 +96,14 @@
     A variable with a signed integer value may be declared as follows:
 
     #+BEGIN_SRC bnf
-      integer_declaration = "(", [whitespace], "Int", integer_range, "_t", whitespace, variable, whitespace, expression, [whitespace], ")"
+      integer_declaration = "(", [whitespace], "Int", integer_range, whitespace, variable, whitespace, expression, [whitespace], ")"
       integer_range = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23" | "24" | "25" | "26" | "27" | "28" | "29" | "30" | "31" | "32"
     #+END_SRC
 
     An unsigned integer value must be declared instead as:
 
     #+BEGIN_SRC bnf
-      unsigned_integer_declaration = "(", [whitespace], "Uint", integer_range, "_t", whitespace, variable, whitespace, expression, ")"
+      unsigned_integer_declaration = "(", [whitespace], "Uint", integer_range, whitespace, variable, whitespace, expression, ")"
     #+END_SRC
 
     The expression must yield the initial integer value.
