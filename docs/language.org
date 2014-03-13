@@ -139,11 +139,25 @@
 
     Variables must use camel case, starting with a lower case letter
     to distinguish them from functions and symbols.
+
+    In all cases we simply translate to the variable name.
 *** Arithmetic Operators
 **** Addition
      #+BEGIN_SRC bnf
        addition = "(", [whitespace], "+", whitespace, expression_list, [whitespace], ")"
      #+END_SRC
+***** C Translation
+      #+BEGIN_SRC lisp
+        (+ exp1 exp2 ... expN)
+      #+END_SRC
+
+      Will simply translate to
+
+      #+BEGIN_SRC c
+        (c_exp1 + c_exp2 + ... + c_expN)
+      #+END_SRC
+
+      Where each *c_expK* is the C translation of *expK*.
 **** Multiplication
      #+BEGIN_SRC bnf
        multiplication = "(", [whitespace], "*", whitespace, expression_list, [whitespace], ")"
