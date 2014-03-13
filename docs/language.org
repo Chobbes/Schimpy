@@ -141,8 +141,21 @@
     to distinguish them from functions and symbols.
 *** Arithmetic Operators
 **** Addition
+     #+BEGIN_SRC bnf
+       addition = "(", [whitespace], "+", whitespace, expression_list, [whitespace], ")"
+     #+END_SRC
 **** Multiplication
+     #+BEGIN_SRC bnf
+       multiplication = "(", [whitespace], "*", whitespace, expression_list, [whitespace], ")"
+     #+END_SRC
 **** Modulo
+     #+BEGIN_SRC bnf
+       modulo = "(", [whitespace], "mod", whitespace, expression, whitespace, expression, [whitespace], ")"
+     #+END_SRC
+**** Division
+     #+BEGIN_SRC bnf
+       division = "(", [whitespace], "/", whitespace, expression, whitespace, expression, [whitespace], ")"
+     #+END_SRC
 *** Comparison Operators
 **** Equality
 **** Inequality
