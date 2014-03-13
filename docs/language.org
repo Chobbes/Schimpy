@@ -35,7 +35,10 @@
 
   *exp1* will be executed first, then *exp2*, and so on. Once *expN*
   has been executed the function call itself may be executed. The
-  order of execution is "left to right".
+  order of execution is "left to right". This execution order only
+  matters if there are function calls in the expressions, however. If
+  there is no function call they can all be changed in parallel by the
+  model checker.
 * Syntax
 ** Data Types
 *** Boolean
@@ -463,6 +466,17 @@
 
     Note that the expressions still follow the regular execution
     order, and are evaluated from left to right.
+*** Write
+    Write is essentially a predefined function which sets the value of
+    an output when given the output, and a boolean value to change the
+    output's value to.
+
+    #+BEGIN_SRC bnf
+      write = "(", [whitespace], "Write", whitespace, variable, whitespace, expression, [whitespace], ")"
+    #+END_SRC
+
+    Note that the variable must be an output variable, and the
+    expression must return a boolean value.
 * Expressions
 ** Simple expressions
    #+BEGIN_SRC bnf
