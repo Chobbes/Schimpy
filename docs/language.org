@@ -110,10 +110,22 @@
     A variable with a symbolic type may be declared with the following format:
 
     #+BEGIN_SRC bnf
-      "(", [whitespace], enum_identifier, whitespace, variable, whitespace, expression, [whitespace], ")"
+      symbolic_declaration = "(", [whitespace], enum_identifier, whitespace, variable, whitespace, expression, [whitespace], ")"
     #+END_SRC
 
     The expression must return a symbol value that is within the enum.
+** Variable Declaration
+   #+BEGIN_SRC bnf
+     variable_declaration = boolean_declaration | input_declaration | output_declaration | integer_declaration | unsigned_integer_declaration | char_declaration | symbolic_declaration
+     variable_declaration_list = "(", [whitespace], [variable_declaration], {whitespace, variable_declaration}, [whitespace], ")"
+   #+END_SRC
+** Nodes
+   A node in the language should have the form:
+
+   #+BEGIN_SRC bnf
+     node_declaration = "(", [whitespace], "node", whitespace, node_identifier, whitespace, variable_declaration_list, whitespace, expression, [whitespace], ")"
+     node_identifier = capital_letter, {letter | digit}
+   #+END_SRC
 ** Functions
    Functions are not first class citizens in the languages. Each
    function has an identifier which must be in camel case where the
