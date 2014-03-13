@@ -124,6 +124,16 @@
 
   This allows us to tell when something is a function right away. Note
   that variable type declarations also follow this format.
+
+  A function is defined as follows
+
+  #+BEGIN_SRC bnf
+    function_definition = "(", [whitespace], "define", whitespace, "(", [whitespace], function, whitespace, variable_list, [whitespace], ")", whitespace, type_list, whitespace, expression, ")"
+    type_list = "(", [whitespace], type, {whitespace, type}, [whitespace]")"
+    type = capital_letter, {lower_case_letter | capital_letter | digit}
+  #+END_SRC
+
+  The final type in the type list is the return value, while the rest are the value of the arguments in order.
 * Syntax
 ** Expressions
 *** Literals
