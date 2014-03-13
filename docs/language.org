@@ -493,6 +493,16 @@
 
     Note that the variable must be an output variable, and the
     expression must return a boolean value.
+** Let Expressions
+   Let bindings are allowed in a restricted set of places (essentially
+   at the top of a function). These allow one to define extra
+   variables. Some of these variables may need state, for instance all
+   of them in a node that are set, and all of them which are
+   initialized with a function's return value.
+
+   #+BEGIN_SRC bnf
+     let_expression = "(", [whitespace], "let", whitespace, variable_declaration_list, whitespace, expression, [whitespace], ")"
+   #+END_SRC
 * Expressions
 ** Simple expressions
    #+BEGIN_SRC bnf
