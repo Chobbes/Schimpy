@@ -476,7 +476,7 @@
      will be translated in C using the comma operator, like so:
 
      #+BEGIN_SRC c
-       (exp1, exp2, ... , expN)
+       (c_exp1, c_exp2, ... , c_expN)
      #+END_SRC
 *** Write
     Write is essentially a predefined function which sets the value of
