@@ -22,43 +22,38 @@
 
 
 ; Routine to read a single bit.
-(: read_bit Input -> Input -> Output -> Boolean)
-(define (read_bit bit lock ack)
-  (if lock (read_bit_ack bit lock ack)
-      (read_bit bit lock ack))) ; Keep attempting to read until lock is set
+(define (ReadBit bit lock ack) (Input Input Output Bool)
+  (if lock (ReadBitAck bit lock ack)
+    (ReadBit bit lock ack))) ; Keep attempting to read until lock is set
 
-(: read_bit_ack Input -> Input -> Output -> Boolean)
-(define (read_bit_ack bit lock ack)
+(define (ReadBitAck bit lock ack) (Input Input Output Boolean)
   ; Execution order is a bit weird here. Bit must have the same value as before read_bit_unack is called.
   ; Have to be careful with function calls...
-  ; With begin bit is returned.
-  (let ((Bool our_bit bit))
-    (begin (write ack true) (read_bit_unack lock ack) our_bit)))
+  ; With begin the last element is returned.
+  (let ((Bool ourBit bit)) ; Since read_bit_unack is called first we can't read inputs after this.
+    (Begin (write ack true) (read_bit_unack lock ack) ourBit)))
 
-(: read_bit_unack Input -> Output -> Boolean -> ())
-(define (read_bit_unack bit lock ack)
-  (if lock (read_bit_unack lock ack) ; Keep trying until unlock
-    (write ack false)))  ; Write when false
+(define (ReadBitUnack bit lock ack) (Input Output Bool  ())
+  (if lock (ReadBitUnack lock ack) ; Keep trying until unlock
+    (Set ack false)))  ; Write when false
 
 
 ;; First byte is lowest order byte
-(: read_byte Input -> Input -> Output -> Byte -> Byte -> Byte)
-(define (read_byte bit lock ack left value)
-  (let ((bit_value (if (read_bit bit lock ack) 1 0))
-        (remaining (- left 1))
-        (new_value (+ bit_value (*2 value))))
-    (if (eq 0 remaining) new_value
-      (read_byte bit lock ack left new_value))))
+(define (ReadByte bit lock ack left value) (Input Input Output Char Char Char)
+  (let ((Char bitValue (if (ReadBit bit lock ack) 1 0))
+        (Char remaining (- left 1))
+        (Char newValue (+ bitValue (* 2 value))))
+    (if (= 0 remaining) newValue
+      (ReadByte bit lock ack left newValue))))
 
 
 ;; All this does is constantly read bytes
-(node reader
+(node Reader
       ;; State variables are declared first with an initial
       ;; value. These may change after each iteration.
-      (((byte our_byte) 0)
-       ((input bit 2))  ; Initial values don't make sense for inputs.
-       ((input lock 3))
-       ((output ack 4) false))
-
-      ;; Port numbers below... Final argument is the starting byte.
-      (set our_byte (read_byte bit lock ack 8 0)))
+      (let ((Char ourByte 0)
+	    (Input bit 2)  ; Initial values don't make sense for inputs.
+	    (Input lock 3)
+	    (Output ack 4 FALSE))
+	;; Port numbers below... Final argument is the starting byte.
+	(Set ourByte (ReadByte bit lock ack 8 0))))
