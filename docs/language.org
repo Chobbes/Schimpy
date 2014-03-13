@@ -172,7 +172,9 @@
       }
     #+END_SRC
 
-    This may get a bit strange with the expressions that don't return anything.
+    This may get a bit strange with the expressions that don't return
+    anything. We can probably use the comma operator in C to solve
+    the issues with expressions that don't contribute to the return value.
 ** Expressions
 *** Literals
     A single literal be it boolean, or integer forms an expression.
