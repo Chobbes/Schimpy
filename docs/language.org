@@ -449,6 +449,20 @@
       #+BEGIN_SRC c
         (c_cond ? c_exp1 : c_exp2)
       #+END_SRC
+*** Begin
+    Begin is a way of sequencing multiple actions, returning the last
+    result.
+
+    #+BEGIN_SRC bnf
+      begin = "(", [whitespace], "Begin", whitespace, expression_list, [whitespace], ")"
+    #+END_SRC
+
+    The value of the final expression in the expression list is
+    returned. All other expressions are executed, and their values are
+    discarded. This is mostly useful for performing IO.
+
+    Note that the expressions still follow the regular execution
+    order, and are evaluated from left to right.
 * Expressions
 ** Simple expressions
    #+BEGIN_SRC bnf
