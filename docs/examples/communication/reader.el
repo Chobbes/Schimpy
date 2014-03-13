@@ -33,7 +33,7 @@
   ; Have to be careful with function calls...
   ; With begin bit is returned.
   (let ((Bool our_bit bit))
-    (begin (write ack true) (read_bit_unack lock ack) bit)))
+    (begin (write ack true) (read_bit_unack lock ack) our_bit)))
 
 (: read_bit_unack Input -> Output -> Boolean -> ())
 (define (read_bit_unack bit lock ack)
