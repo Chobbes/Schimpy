@@ -267,6 +267,20 @@
       #+END_SRC
 
       Where each *c_expK* is the C translation of *expK*.
+**** Subtraction
+     #+BEGIN_SRC bnf
+       subtraction = "(", [whitespace], "-", whitespace, expression, whitespace, expression, [whitespace], ")"
+     #+END_SRC
+***** C Translation
+      #+BEGIN_SRC lisp
+        (- exp1 exp2)
+      #+END_SRC
+
+      Should translate to
+
+      #+BEGIN_SRC c
+        (c_exp1 - c_exp2)
+      #+END_SRC
 **** Multiplication
      #+BEGIN_SRC bnf
        multiplication = "(", [whitespace], "*", whitespace, expression_list, [whitespace], ")"
