@@ -186,7 +186,7 @@
    A function is defined as follows
 
    #+BEGIN_SRC bnf
-     function_definition = "(", [whitespace], "define", whitespace, "(", [whitespace], function, whitespace, variable_list, [whitespace], ")", whitespace, type_list, whitespace, expression, ")"
+     function_definition = "(", [whitespace], "define", whitespace, "(", [whitespace], function, whitespace, variable_list, [whitespace], ")", whitespace, type_list, whitespace, (let_expression | expression), ")"
      type_list = "(", [whitespace], type, {whitespace, type}, [whitespace]")"
      type = capital_letter, {lower_case_letter | capital_letter | digit}
    #+END_SRC
