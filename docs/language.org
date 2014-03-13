@@ -124,7 +124,15 @@
 
    #+BEGIN_SRC bnf
      node_declaration = "(", [whitespace], "node", whitespace, node_identifier, whitespace, variable_declaration_list, whitespace, expression, [whitespace], ")"
+     node_declaration_list = "(", [whitespace], [node_declaration], {whitespace, node_declaration}, [whitespace], ")"
      node_identifier = capital_letter, {letter | digit}
+   #+END_SRC
+** Networks
+   #+BEGIN_SRC bnf
+     network_definition = "(", [whitespace], "network", whitespace, node_declaration_list, whitespace, connection_list, [whitespace], ")"
+     node_pin = "(", node_identifier, variable, ")"
+     connection = "(", [whitespace], node_pin, whitespace, node_pin, [whitespace], ")"
+     connection_list = "(", [whitespace], [connection], {whitespace, connection}, [whitespace], ")"
    #+END_SRC
 ** Functions
    Functions are not first class citizens in the languages. Each
@@ -415,9 +423,9 @@
       (write writer))
     
      ;; List of connections output -> input
-     ((read.ack write.ack)
-      (write.bit read.bit)
-      (write.lock read.lock)))
+     (((read ack) (write ack))
+      ((write bit) (read bit))
+      ((write lock) (read lock))))
   #+END_SRC
 
   When translating to NuSMV the network is turned into the main
