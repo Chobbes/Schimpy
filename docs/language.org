@@ -2,6 +2,27 @@
 #+AUTHOR: Calvin Beck
 #+OPTIONS: ^:{}
 
+
+* Reserved Words
+  Several words are reserved by the language:
+
+  - define
+  - macro
+  - Byte
+  - Int*_t
+  - Uint*_t
+  - And
+  - Or
+  - Not
+  - node
+  - network
+  - Bool
+  - TRUE
+  - FALSE
+  - Input
+  - Output
+  - Char
+  - enum
 * Syntax
 ** Data Types
 *** Boolean
