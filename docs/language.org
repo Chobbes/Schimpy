@@ -54,6 +54,21 @@
    I think we can fairly easily support something like the stdint
    types from C, and we can support an arbitrary amount of bits from
    size 1 to size 32. For instance we can have int7_t and uint9_t.
+
+   A variable with a signed integer value may be declared as follows:
+
+   #+BEGIN_SRC bnf
+     integer_declaration = "(", [whitespace], "Int", integer_range, "_t", whitespace, variable, whitespace, expression, ")"
+     integer_range = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23" | "24" | "25" | "26" | "27" | "28" | "29" | "30" | "31" | "32"
+   #+END_SRC
+
+   An unsigned integer value must be declared instead as:
+
+   #+BEGIN_SRC bnf
+     unsigned_integer_declaration = "(", [whitespace], "Uint", integer_range, "_t", whitespace, variable, whitespace, expression, ")"
+   #+END_SRC
+
+   The expression must yield the initial integer value.
 ** Byte
    Single 8-bit bytes. Can use ascii character literals.
 
