@@ -527,6 +527,37 @@
    #+BEGIN_SRC bnf
      let_expression = "(", [whitespace], "let", whitespace, variable_declaration_list, whitespace, expression, [whitespace], ")"
    #+END_SRC
+*** C Translation
+    Since a let expression can only occur at the beginning of
+    functions (and nodes, which are also sort of functions -- in this
+    case, however, the variables must be made static).
+
+    #+BEGIN_SRC lisp
+      (let (dec1 dec2 ... decN) exp)
+    #+END_SRC
+
+    In a function would roughly translate to:
+
+    #+BEGIN_SRC c
+      c_dec1;
+      c_dec2;
+      ...
+      c_decN;
+      
+      return c_exp;
+    #+END_SRC
+
+    However, in a node, since the variables all keep their state they
+    must be declared as static.
+
+    #+BEGIN_SRC c
+      static c_dec1;
+      static c_dec2;
+      ...
+      static c_decN;
+      
+      return c_exp;
+    #+END_SRC
 * Expressions
 ** Simple expressions
    #+BEGIN_SRC bnf
