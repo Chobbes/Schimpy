@@ -270,6 +270,15 @@
      connection = "(", [whitespace], node_pin, whitespace, node_pin, [whitespace], ")"
      connection_list = "(", [whitespace], [connection], {whitespace, connection}, [whitespace], ")"
    #+END_SRC
+*** C Translation
+    Each node in a network will be translated and put in a separate C
+    file, and we should consider creating a makefile to build all of
+    these programs for use with [[https://github.com/Chobbes/EmulArd][EmulArd]]... Additionally a network
+    topology file for [[https://github.com/Chobbes/EmulArd][EmulArd]] should be generated so we can rapidly
+    test the programs in the "emulator".
+
+    There is technically no C translation for a network, however, as
+    each C file will represent a single processing node.
 ** Functions
    Functions are not first class citizens in the languages. Each
    function has an identifier which must be in camel case where the
