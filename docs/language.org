@@ -83,6 +83,29 @@
     The integer value is the port number on the arduino, and this port
     may not be used with an output as well. Only one variable for a
     certain input port may be defined.
+**** C Translation
+     Input declarations may only occur within nodes. When an input is
+     declared:
+
+     #+BEGIN_SRC lisp
+       (Input inputName port)
+     #+END_SRC
+
+     It must be translated as follows:
+
+     #+BEGIN_SRC c
+       char inputName;
+     #+END_SRC
+
+     Which is put in the global scope, then we need to set the pinMode
+     at the start of the program's execution.
+
+     #+BEGIN_SRC c
+       pinMode(port, INPUT);
+     #+END_SRC
+
+     The input values will be initialized before any computations are
+     done by some mass input reading function.
 *** Output
     Single boolean value for the output on a digital pin (TRUE is HIGH,
     and FALSE is LOW). Output variables act mostly the same as regular
