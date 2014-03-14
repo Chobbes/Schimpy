@@ -177,6 +177,16 @@
     #+BEGIN_SRC bnf
       char_declaration = "(", [whitespace], "Char", whitespace, variable, whitespace, expression, [whitespace] ")"
     #+END_SRC
+**** C translation
+     #+BEGIN_SRC lisp
+       (Char variableName exp)
+     #+END_SRC
+
+     Should translate as:
+
+     #+BEGIN_SRC c
+       char variableName = c_exp;
+     #+END_SRC
 *** Symbolic Enums
     It makes sense to support groups of symbols as this will help to
     reduce the state space needed for certain programs. For instance
