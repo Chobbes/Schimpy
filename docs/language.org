@@ -221,6 +221,31 @@
     #+END_SRC
 
     The expression must return a symbol value that is within the enum.
+**** C Translation
+     #+BEGIN_SRC lisp
+       (enum EnumName SYM1 SYM2 ... SYMN)
+     #+END_SRC
+
+     Should be translated to
+
+     #+BEGIN_SRC c
+       typedef enum {SYM1, SYM2, ... , SYMN} EnumName;
+     #+END_SRC
+
+     At the top of the C file. A symbolic variable declared as follows
+     in the language:
+
+     #+BEGIN_SRC lisp
+       (EnumName variableName exp)
+     #+END_SRC
+
+     Should be translated into C as something like:
+
+     #+BEGIN_SRC c
+       EnumName variableName = c_exp;
+     #+END_SRC
+
+     Note that the expression must yield a value within the enumeration.
 *** Null Type
     () is used to represent something with no type. For instance,
     functions like "Set" don't really have anything of value to return,
