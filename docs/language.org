@@ -151,6 +151,10 @@
     #+END_SRC
 
     The expression must return a symbol value that is within the enum.
+*** Null Type
+    () is used to represent something with no type. For instance,
+    functions like "Set" don't really have anything of value to return,
+    but they still need a type. This is like "void" in C.
 ** Variable Declaration
    #+BEGIN_SRC bnf
      variable_declaration = boolean_declaration | input_declaration | output_declaration | integer_declaration | unsigned_integer_declaration | char_declaration | symbolic_declaration
@@ -232,10 +236,6 @@
    whatever they want for a substitution -- it doesn't have to be
    valid in the language by itself, only when the substitution occurs.
 ** Expressions
-** Null Type
-   () is used to represent something with no type. For instance,
-   functions like "Set" don't really have anything of value to return,
-   but they still need a type. This is like "void" in C.
 *** Literals
     A single literal be it boolean, or integer forms an expression.
 *** Variables
