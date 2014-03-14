@@ -22,33 +22,31 @@
 
 ;; We need to be able to reverse a byte so we can send in the proper
 ;; order more easily.
-(: byte_reverse Byte -> Byte -> Byte -> Byte)
-(define (byte_reverse reversed left byte)
-  (let ((least_bit (mod byte 2))
-        (new_reversed (+ least_bit (/ reversed 2)))
+(define (ByteReverse reversed left byte) (Char Char Char Char)
+  (let ((leastBit (mod byte 2))
+        (newReversed (+ leastBit (/ reversed 2)))
         (remaining (- left 1)))
-    (if (eq 0 remaining) new_reversed
-      (byte_reverse new_reversed remaining (/ byte 2)))))
+    (if (= 0 remaining) newReversed
+      (ByteReverse newReversed remaining (/ byte 2)))))
 
-(: write_bit Output -> Output -> Input -> Boolean -> ())
-(define (write_bit bit lock ack value)
-  (begin (write bit) (write lock) (write_bit_unlock lock ack)))
 
-(: write_bit_unlock Output -> Input -> ())
-(define (write_bit_unlock lock ack)
+(define (WriteBit bit lock ack value) (Output Output Input Bool ())
+  (begin (Set bit) (Set lock) (WriteBitUnlock lock ack)))
+
+
+(define (WriteBitUnlock lock ack) (Output Input ())
   ;; Once ack is set we can unset the lock. Done transfer.
   (if ack
-      (begin (write lock false) (write_bit_wait ack))
-      (write_bit_unlock lock ack)))
+      (begin (Set lock FALSE) (WriteBitWait ack))
+      (WriteBitUnlock lock ack)))
 
-(: write_bit_wait Input -> ())
-(define (write_bit_wait ack)
+
+(define (WriteBitWait ack) (Input ())
   ;; Wait until ack is unset
-  (if ack (write_bit_wait ack)
+  (if ack (WriteBitWait ack)
     ()))
 
-(: write_byte Output -> Output -> Input -> Byte -> Byte -> ())
-(define (write_byte bit lock ack byte left)
-  (let ((bit_value (eq 1 (mod byte 2))))
-    (if (eq 0 left) ()
-      (begin (write_bit bit lock ack bit_value) (write_byte bit lock ack (/ byte 2) (- left 1))))))
+(define (WriteByte bit lock ack byte left) (Output Output Input Char Char ())
+  (let ((bitValue (= 1 (mod byte 2))))
+    (if (= 0 left) ()
+      (begin (WriteBit bit lock ack bitValue) (WriteByte bit lock ack (/ byte 2) (- left 1))))))
