@@ -120,6 +120,30 @@
 
     Only one output variable can be declared for a port on the arduino,
     and this port may not be used for an input as well.
+**** C Translation
+     An output declaration of the form:
+
+     #+BEGIN_SRC lisp
+       (Output outputName port exp)
+     #+END_SRC
+
+     Should be roughly translated as
+
+     #+BEGIN_SRC c
+       char outputName;
+     #+END_SRC
+
+     In the global scope. At the start of the program's execution we
+     must set the initial value of the output, as well as the pin
+     mode.
+
+     #+BEGIN_SRC c
+       pinMode(port, OUTPUT);
+       outputName = c_exp;
+     #+END_SRC
+
+     And we must call the function to set all of the outputs to their
+     current value before performing any other computations.
 *** Integers
     Ranges for integers need to be allowed. In particular we need to be
     able to have integers with only a few bits of state. The less state
