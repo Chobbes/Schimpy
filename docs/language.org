@@ -55,6 +55,19 @@
     #+END_SRC
 
     Where the *expression* provides the initial value of the variable.
+**** C Translation
+     "TRUE" should translate to 1, and "FALSE" should translate to 0
+     in C. Furthermore:
+
+     #+BEGIN_SRC lisp
+       (Bool variableName exp)
+     #+END_SRC
+
+     Should translate to
+
+     #+BEGIN_SRC c
+       char variableName = c_exp;
+     #+END_SRC
 *** Input
     Single boolean value representing an input from a digital pin on an
     Arduino (TRUE is HIGH, and FALSE is LOW). Input values are updated
