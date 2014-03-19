@@ -58,18 +58,10 @@
   "Fetch a list containing all of the symbols in the global scope (i.e., all of the functions and nodes)."
   (list (all-func-names program) (all-node-names program)))
 
-(defun in-list (x xs)
-  (let ((head (car xs))
-        (rest (cdr xs)))
-    (cond
-      ((null xs) NIL)
-      ((eq x head) T)
-      (T (in-list x rest)))))
-
 (defun list-dupes (items)
   (let ((head (car items))
         (rest (cdr items)))
     (cond
       ((null items) ())
-      ((in-list head rest) (cons head (list-dupes (remove-if (lambda (x) (eq head x)) rest))))
+      ((member head rest) (cons head (list-dupes (remove-if (lambda (x) (eq head x)) rest))))
       (T (list-dupes rest)))))
