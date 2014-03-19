@@ -56,7 +56,7 @@
 
 (defun all-global-symbols (program)
   "Fetch a list containing all of the symbols in the global scope (i.e., all of the functions and nodes)."
-  (list (all-func-names program) (all-node-names program)))
+  (append (all-func-names program) (all-node-names program)))
 
 (defun list-dupes (items)
   "Get a list of duplicate items in the list."
@@ -66,3 +66,8 @@
       ((null items) ())
       ((member head rest) (cons head (list-dupes (remove-if (lambda (x) (eq head x)) rest))))
       (T (list-dupes rest)))))
+
+(defun check_program (program)
+  "Check program for errors."
+  (let ((duplicates (list-dupes (all-global-symbols program))))
+    (if duplicates (format NIL "Error -- duplicate symbols: ~a" duplicates) NIL)))
