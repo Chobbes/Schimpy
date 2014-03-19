@@ -59,6 +59,7 @@
   (list (all-func-names program) (all-node-names program)))
 
 (defun list-dupes (items)
+  "Get a list of duplicate items in the list."
   (let ((head (car items))
         (rest (cdr items)))
     (cond
