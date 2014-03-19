@@ -67,7 +67,10 @@
       ((member head rest) (cons head (list-dupes (remove-if (lambda (x) (eq head x)) rest))))
       (T (list-dupes rest)))))
 
-(defun check_program (program)
-  "Check program for errors."
-  (let ((duplicates (list-dupes (all-global-symbols program))))
-    (if duplicates (format NIL "Error -- duplicate symbols: ~a" duplicates) NIL)))
+(defun check-program (program)
+  "Check program for errors. NIL if no errors are found, and an error string otherwise."
+  (let ((duplicates (list-dupes (all-global-symbols program)))
+	(nodes (remove-if-not #'nodep program)))
+    (cond
+      (duplicates (format NIL "Error -- duplicate symbols: ~a~%" duplicates))
+      ((null nodes) "Error -- no node!"))))
