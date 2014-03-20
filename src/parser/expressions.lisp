@@ -41,6 +41,16 @@
    (eq '> name)
    (eq '>= name)))
 
+(defun expression-listp (part)
+  "Check for list of expressions."
+  (loop for exp in (mapcar #'expressionp part) always exp))
+
+(defun binary-operationp (op exp)
+  "Check if this looks like a binary operation for a given op"
+  (let ((operation (car exp))
+        (args (cdr exp)))
+    (and (eq op operation) (expression-listp args) (= 3 (length exp)))))
+
 (defun additionp (exp)
   "Check if this looks like an addition expression."
   (let ((operation (car exp))
@@ -49,18 +59,30 @@
 
 (defun subtractionp (exp)
   "Check if this looks like a subtraction expression."
-  (let ((operation (car exp))
-        (args (cdr exp))
-        (rest (cdddr exp)))
-    (if (eq operation '-)
-        (cond
-          ((rest) NIL) ;; Too many arguments
-          (T (expression-listp args)))
-        ())))
+  (binary-operationp '- exp))
 
-(defun expression-listp (part)
-  "Check for list of expressions."
-  (loop for exp in (mapcar #'expressionp part) always exp)) 
+(defun multiplicationp (exp)
+  "Check if this looks like a multiplication expression."
+  (let ((operation (car exp))
+        (arguments (cdr exp)))
+    (and (eq operation '*) (expression-listp arguments))))
+
+(defun modulop (exp)
+  "Check if this looks like a modulo expression."
+  (binary-operationp 'Mod exp))
+
+(defun divisionp (exp)
+  "Check if this looks like a division expression."
+  (binary-operationp '/ exp))
+
+(defun arithmeticp (exp)
+  "Check if something looks like an arithmetic expression."
+  (or
+   (additionp exp)
+   (subtractionp exp)
+   (multiplicationp exp)
+   (modulop exp)
+   (divisionp exp)))
 
 (defun variablep (var)
   "Check if something is a variable name"
@@ -68,4 +90,4 @@
 
 (defun literalp (literal)
   "Check if something is a literal."
-  (numberp literal)) ;; For now just check that it is a number.
+  (integerp literal)) ;; For now just check that it is a number.
