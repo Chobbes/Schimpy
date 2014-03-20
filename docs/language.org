@@ -11,6 +11,7 @@
   - Byte
   - Int*
   - Uint*
+  - Mod
   - And
   - Or
   - Not
@@ -407,7 +408,7 @@
       Where each *c_expK* is the C translation of *expK*.
 **** Modulo
      #+BEGIN_SRC bnf
-       modulo = "(", [whitespace], "mod", whitespace, expression, whitespace, expression, [whitespace], ")"
+       modulo = "(", [whitespace], "Mod", whitespace, expression, whitespace, expression, [whitespace], ")"
      #+END_SRC
 ***** C Translation
       #+BEGIN_SRC lisp
