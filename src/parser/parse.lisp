@@ -28,6 +28,10 @@
     (let ((sexp (read file nil)))
       (if sexp (cons sexp (grab-sexps file)) nil))))
 
+(defun load-file (filename)
+  "Function to load the symbolic expressions from a given file name"
+  (WITH-OPEN-FILE (program filename) (grab-sexps program)))
+
 (defun funcp (part)
   "Check if a part of a Schimpy program is a function."
   (eq (car part) '|define|))
