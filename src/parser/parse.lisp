@@ -45,6 +45,39 @@
   "Check if a part of a Schimpy program is a node."
   (eq (car part) '|node|))
 
+(defun expressionp (part)
+  "Check if a part of a Schimpy program is an expression. Note this only checks syntax."
+  (or
+    (literalp part)
+    (variablep part)
+    (and (listp part) (expression-callp (car part)) (expression-listp (cdr part)))))
+
+(defun expression-callp (name)
+  "Check if this could be a valid function call"
+  (or
+   (eq '/ name)
+   (eq '+ name)
+   (eq '- name)
+   (eq '* name)
+   (eq '= name)
+   (eq '!= name)
+   (eq '< name)
+   (eq '<= name)
+   (eq '> name)
+   (eq '>= name)))
+
+(defun expression-listp (part)
+  "Check for list of expressions."
+  (loop for exp in (mapcar #'expressionp part) always exp))
+
+(defun variablep (var)
+  "Check if something is a variable name"
+  (stringp var))  ;; For now just check if it is a string.
+
+(defun literalp (literal)
+  "Check if something is a literal."
+  (numberp literal)) ;; For now just check that it is a number.
+
 (defun node-name (node)
   "Extract the node name for a Schimpy node as a symbol"
   (cadr node))
