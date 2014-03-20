@@ -67,6 +67,17 @@
       ((member head rest) (cons head (list-dupes (remove-if (lambda (x) (eq head x)) rest))))
       (T (list-dupes rest)))))
 
+(defun symbol-entry (chunk)
+  "Turns a chunk of code into a symbol table entry."
+  (cond
+    ((funcp chunk) (cons (func-name chunk) chunk))
+    ((nodep chunk) (cons (node-name chunk) chunk))
+    (T ())))
+
+(defun symbol-table (program)
+  "Generates a symbol table. A symbol table contains a pair of the name, and the definition of the object."
+  (mapcar #'symbol-entry program))
+
 (defun check-program (program)
   "Check program for errors. NIL if no errors are found, and an error string otherwise."
   (let ((duplicates (list-dupes (all-global-symbols program)))
@@ -74,3 +85,7 @@
     (cond
       (duplicates (format NIL "Error -- duplicate symbols: ~a~%" duplicates))
       ((null nodes) "Error -- no node!"))))
+
+(defun check-function (func)
+  "Check a function for errors. NIL if no errors are found, and an error string otherwise."
+  ())
