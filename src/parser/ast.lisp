@@ -23,3 +23,15 @@
 
 (defgeneric syntax-check (node scope)
   (:documentation "Returns NIL if the syntax, types, and scoping all seems to be correct. Otherwise return an error message"))
+
+(defclass ast-node ()
+  ((chunk
+    :initarg :chunk
+    :initform (error "Must pass a chunk of code to build node!")
+    :accessor chunk
+    :documentation "A chunk is essentially a lisp expression for the code.")
+   (parent
+    :initarg :parent
+    :initform ()
+    :accessor parent
+    :documentation "Parent for the given node (enclosing function / expression / node).")))
