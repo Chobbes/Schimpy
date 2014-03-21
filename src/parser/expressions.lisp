@@ -20,12 +20,37 @@
 ;; CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-(defun expressionp (part)
-  "Check if a part of a Schimpy program is an expression. Note this only checks syntax."
-  (or
-    (literalp part)
-    (variablep part)
-    (and (listp part) (expression-callp (car part)) (expression-listp (cdr part)))))
+
+(defun expression-listp (part)
+  "Check for list of expressions."
+  (loop for exp in (mapcar #'expressionp part) always exp))
+
+(defun expressionp (blah) T)
+
+(defun binary-operationp (op exp)
+  "Check if this looks like a binary operation for a given op. If op is NIL ignore"
+  (let ((operation (car exp))
+        (args (cdr exp)))
+    (and (or (null op) (eq op operation)) (expression-listp args) (= 3 (length exp)))))
+
+(defclass binary-operation ()
+  ((chunk
+    :initarg :chunk
+    :initform (error "Must pass a chunk of code to make a binary operation!"))
+   (operation)
+   (arg1)
+   (arg2)))
+
+(defmethod initialize-instance :after ((bin-op binary-operation) &key)
+  (let* ((chunk (slot-value bin-op 'chunk))
+	 (op (car chunk))
+	 (arg1 (cadr chunk))
+	 (arg2 (caddr chunk)))
+    (if (binary-operationp NIL chunk)
+	(setf (slot-value bin-op 'operation) op
+	      (slot-value bin-op 'arg1) arg1
+	      (slot-value bin-op 'arg2) arg2)
+	(error "Not a valid binary operation"))))
 
 (defun expression-callp (name)
   "Check if this could be a valid function call"
@@ -41,16 +66,8 @@
    (eq '> name)
    (eq '>= name)))
 
-(defun expression-listp (part)
-  "Check for list of expressions."
-  (loop for exp in (mapcar #'expressionp part) always exp))
 
-(defun binary-operationp (op exp)
-  "Check if this looks like a binary operation for a given op"
-  (let ((operation (car exp))
-        (args (cdr exp)))
-    (and (eq op operation) (expression-listp args) (= 3 (length exp)))))
-
+;; Arithmetic expressions
 (defun additionp (exp)
   "Check if this looks like an addition expression."
   (let ((operation (car exp))
@@ -83,6 +100,23 @@
    (multiplicationp exp)
    (modulop exp)
    (divisionp exp)))
+
+;; Comparison expressions
+(defun equalityp (exp)
+  "Check if this looks like an equality expression."
+  (binary-operationp '= exp))
+
+(defun inequalityp (exp)
+  "Check if this looks like an inequality expression."
+  (binary-operationp '!= exp))
+
+(defun less-thanp (exp)
+  "Check if this looks like a less than expression."
+  (binary-operationp '< exp))
+
+(defun less-than-equalsp (exp)
+  "Check if this looks like a less than or equal to expression."
+  (binary-operationp '<= exp))
 
 (defun variablep (var)
   "Check if something is a variable name"
