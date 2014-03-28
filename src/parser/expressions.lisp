@@ -61,23 +61,27 @@
               (arguments fun-call) (mapcar #'create-expression argument-chunk))
         (error (format NIL "Not a valid function call: ~a" chunk)))))
 
+
+(defun variable-expressionp (part)
+  "Check if something looks like a variable"
+  (symbolp part))
+
+(defclass variable-expression ()
+  ((variable-name
+    :documentation "Identifier for the variable."
+    :accessor variable-name)))
+
+(defmethod initialize-instance :after ((var variable-expression) &key)
+  (let ((chunk (chunk var)))
+       (if (variable-expressionp chunk)
+           (setf (variable-name var) chunk)
+           (error "Invalid variable expression: ~a" chunk))))
+
 (defun create-expression (exp)
   "Create an expression object of some form."
   (cond
     ((function-callp exp) (make-instance 'function-call :chunk exp))
     (T (error (format NIL "Not a valid expression: ~a" exp)))))
-
-;; (defclass variable-expression ()
-;;   ((chunk
-;;     :initarg :chunk
-;;     :initform (error "Must pass a chunk of code to make a variable expression!"))
-;;    (variable-name)))
-
-;; (defmethod initialize-instance :after ((var variable-expression) &key)
-;;   (let * ((chunk (slot-value var 'chunk))
-;;           (name (car chunk))
-;;           (rest (cdr chunk)))
-;;        (if 
 
 (defun expression-callp (name)
   "Check if this could be a valid function call"
