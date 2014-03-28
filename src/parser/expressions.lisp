@@ -29,17 +29,6 @@
   "Check if something looks like an expression."
   T)
 
-(defmethod initialize-instance :after ((bin-op binary-operation) &key)
-  (let* ((chunk (slot-value bin-op 'chunk))
-	 (op (car chunk))
-	 (arg1 (cadr chunk))
-	 (arg2 (caddr chunk)))
-    (if (binary-operationp NIL chunk)
-	(setf (slot-value bin-op 'operation) op
-	      (slot-value bin-op 'arg1) (create-expression arg1)
-	      (slot-value bin-op 'arg2) (create-expression arg2))
-	(error "Not a valid binary operation."))))
-
 (defun function-callp (part)
   "Checks if a chunk of code looks like a function call."
   (and (listp part) (not (null part))))
@@ -60,7 +49,6 @@
         (setf (function-name fun-call) name
               (arguments fun-call) (mapcar #'create-expression argument-chunk))
         (error (format NIL "Not a valid function call: ~a" chunk)))))
-
 
 (defun variable-expressionp (part)
   "Check if something looks like a variable expression."
