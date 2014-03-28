@@ -63,7 +63,7 @@
 
 
 (defun variable-expressionp (part)
-  "Check if something looks like a variable"
+  "Check if something looks like a variable expression."
   (symbolp part))
 
 (defclass variable-expression ()
@@ -73,14 +73,30 @@
 
 (defmethod initialize-instance :after ((var variable-expression) &key)
   (let ((chunk (chunk var)))
-       (if (variable-expressionp chunk)
-           (setf (variable-name var) chunk)
-           (error "Invalid variable expression: ~a" chunk))))
+    (if (variable-expressionp chunk)
+        (setf (variable-name var) chunk)
+        (error (format NIL "Invalid variable expression: ~a" chunk)))))
+
+(defun integer-expressionp (part)
+  "Check if somehing looks like an integer."
+  (integerp part))
+
+(defclass integer-expression (ast-node)
+  ((value
+    :documentation "Integer value for literal."
+    :accessor value)))
+
+(defmethod initialize-instance :after ((int integer-expression) &key)
+  (let ((chunk (chunk int)))
+    (if (integer-expressionp chunk)
+        (setf (value int) chunk)
+        (error (format NIL "Invalid integer literal: ~a" chunk)))))
 
 (defun create-expression (exp)
   "Create an expression object of some form."
   (cond
     ((function-callp exp) (make-instance 'function-call :chunk exp))
+    ((variable-expressionp exp) (make-instance 'variable-expression :chunk exp))
     (T (error (format NIL "Not a valid expression: ~a" exp)))))
 
 (defun expression-callp (name)
