@@ -21,6 +21,7 @@
 ;; SOFTWARE.
 
 
+;; Basic expression stuff predicates for chunks of code.
 (defun expression-listp (part)
   "Check for list of expressions."
   (loop for exp in (mapcar #'expressionp part) always exp))
@@ -29,6 +30,8 @@
   "Check if something looks like an expression."
   T)
 
+
+;; Function call stuff.
 (defun function-callp (part)
   "Checks if a chunk of code looks like a function call."
   (and (listp part) (not (null part))))
@@ -50,6 +53,38 @@
               (arguments fun-call) (mapcar #'create-expression argument-chunk))
         (error (format NIL "Not a valid function call: ~a" chunk)))))
 
+;; Built in functions. These are a subclass of function call.
+
+;; Addition
+(defun addition-expressionp (exp)
+  "Check if this looks like an addition expression."
+  (let ((operation (car exp)))
+    (eq operation '+)))
+
+(defclass addition-expression (function-call)
+  ())
+
+(defmethod initialize-instance :after ((add addition-expression) &key)
+  (if (addition-expressionp (chunk add))
+      T
+      (error (format NIL "Not a valid addition expression: ~a" chunk))))
+
+;; Subtraction
+(defun subtraction-expressionp (exp)
+  "Check if this looks like a subtraction expression."
+  (let ((operation (car exp)))
+    (eq operation '-)))
+
+(defclass subtraction-expression (function-call)
+  ())
+
+(defmethod initialize-instance :after ((sub subtraction-expression) &key)
+  (if (subtraction-expressionp (chunk sub))
+      T
+      (error (format NIL "Not a valid subtraction expression: ~a" chunk))))
+
+
+;; Variable expressions (i.e., expressions consisting of a single variable)
 (defun variable-expressionp (part)
   "Check if something looks like a variable expression."
   (symbolp part))
@@ -65,6 +100,8 @@
         (setf (variable-name var) chunk)
         (error (format NIL "Invalid variable expression: ~a" chunk)))))
 
+
+;; Integer literal expressions
 (defun integer-expressionp (part)
   "Check if somehing looks like an integer."
   (integerp part))
@@ -80,6 +117,8 @@
         (setf (value int) chunk)
         (error (format NIL "Invalid integer literal: ~a" chunk)))))
 
+
+;; Function to create an expression.
 (defun create-expression (exp)
   "Create an expression object of some form."
   (cond
@@ -103,11 +142,6 @@
 
 
 ;; Arithmetic expressions
-(defun additionp (exp)
-  "Check if this looks like an addition expression."
-  (let ((operation (car exp))
-        (arguments (cdr exp)))
-    (and (eq operation '+) (expression-listp arguments))))
 
 (defun subtractionp (exp)
   "Check if this looks like a subtraction expression."
