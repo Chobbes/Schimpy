@@ -983,3 +983,29 @@
     the same function.
   - There is an assumption that the single bit channels will always be
     read correctly.
+* Implementation
+  We will provide a Schimpy compiler which is written in Common
+  Lisp. Common Lisp was chosen mostly because a lisp like language is
+  very easily parsed by a lisp like language. Common Lisp also aims to
+  be somewhat portable, and everything written in Common Lisp should
+  work in Common Lisp for a very long time.
+** Parsing
+   The parsing is mostly done by Common Lisp itself as it can read in
+   a file as one big symbolic expression.
+** Abstract Syntax Tree
+   It makes sense to declare a class for each of the pieces of our
+   language as a node in a syntax tree, instead of just manipulating
+   lists. This allows for easier error checking, and should allow us
+   to build different code generators using multi-methods nicely.
+*** Functions
+    Function calls are the most common construct in the language, and
+    pretty much anything enclosed within two parenthesis is considered
+    a function call (exceptions are things like nodes, and function
+    definitions). A function is essentially just the name of the
+    function, and the arguments that follow.
+
+    It is important to note that all of the built in operations and
+    expressions are function calls. The arithmetic operations, if then
+    else expressions, comparison operations, and boolean logic
+    operations are all function calls. Each of these different actions
+    are considered to be "built in" functions.
