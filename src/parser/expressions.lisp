@@ -25,21 +25,9 @@
   "Check for list of expressions."
   (loop for exp in (mapcar #'expressionp part) always exp))
 
-(defun expressionp (blah) T)
-
-(defun binary-operationp (op exp)
-  "Check if this looks like a binary operation for a given op. If op is NIL ignore"
-  (let ((operation (car exp))
-        (args (cdr exp)))
-    (and (or (null op) (eq op operation)) (expression-listp args) (= 3 (length exp)))))
-
-(defclass binary-operation ()
-  ((chunk
-    :initarg :chunk
-    :initform (error "Must pass a chunk of code to make a binary operation!"))
-   (operation)
-   (arg1)
-   (arg2)))
+(defun expressionp (blah)
+  "Check if something looks like an expression."
+  T)
 
 (defmethod initialize-instance :after ((bin-op binary-operation) &key)
   (let* ((chunk (slot-value bin-op 'chunk))
@@ -48,9 +36,48 @@
 	 (arg2 (caddr chunk)))
     (if (binary-operationp NIL chunk)
 	(setf (slot-value bin-op 'operation) op
-	      (slot-value bin-op 'arg1) arg1
-	      (slot-value bin-op 'arg2) arg2)
-	(error "Not a valid binary operation"))))
+	      (slot-value bin-op 'arg1) (create-expression arg1)
+	      (slot-value bin-op 'arg2) (create-expression arg2))
+	(error "Not a valid binary operation."))))
+
+(defun function-callp (part)
+  "Checks if a chunk of code looks like a function call."
+  (and (listp part) (not (null part))))
+
+(defclass function-call (ast-node)
+  ((function-name
+    :documentation "Name of the function call -- might be an operation as well."
+    :accessor function-name)
+   (arguments
+    :documentation "Argument list for the function. Each argument is an expression."
+    :accessor arguments)))
+
+(defmethod initialize-instance :after ((fun-call function-call) &key)
+  (let* ((chunk (chunk fun-call))
+         (argument-chunk (cdr chunk))
+         (name (car chunk)))
+    (if (function-callp chunk)
+        (setf (function-name fun-call) name
+              (arguments fun-call) (mapcar #'create-expression argument-chunk))
+        (error (format NIL "Not a valid function call: ~a" chunk)))))
+
+(defun create-expression (exp)
+  "Create an expression object of some form."
+  (cond
+    ((function-callp exp) (make-instance 'function-call :chunk exp))
+    (T (error (format NIL "Not a valid expression: ~a" exp)))))
+
+;; (defclass variable-expression ()
+;;   ((chunk
+;;     :initarg :chunk
+;;     :initform (error "Must pass a chunk of code to make a variable expression!"))
+;;    (variable-name)))
+
+;; (defmethod initialize-instance :after ((var variable-expression) &key)
+;;   (let * ((chunk (slot-value var 'chunk))
+;;           (name (car chunk))
+;;           (rest (cdr chunk)))
+;;        (if 
 
 (defun expression-callp (name)
   "Check if this could be a valid function call"
