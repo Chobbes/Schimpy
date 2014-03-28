@@ -1009,3 +1009,7 @@
     else expressions, comparison operations, and boolean logic
     operations are all function calls. Each of these different actions
     are considered to be "built in" functions.
+
+    One small problem with this is that there is no way to check if
+    the built in functions are actually implemented with a code
+    generator. Maybe it makes sense to build special classes.
